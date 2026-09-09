@@ -62,21 +62,24 @@ export const ASSETS = [
   { symbol: "GOLD_18K",     name: "طلای ۱۸ عیار",     category: "gold",     currency: "TOMAN", unit: "گرم",    tgjuKeys: ["geram18"] },
   { symbol: "GOLD_24K",     name: "طلای ۲۴ عیار",     category: "gold",     currency: "TOMAN", unit: "گرم",    tgjuKeys: ["geram24"] },
   { symbol: "GOLD_MESGHAL", name: "مثقال طلا",        category: "gold",     currency: "TOMAN", unit: "مثقال",  tgjuKeys: ["mesghal"] },
-  { symbol: "GOLD_OUNCE",   name: "انس جهانی طلا",    category: "gold",     currency: "USD",   unit: "انس",    tgjuKeys: ["once", "ounce"], decimals: 2 },
+  // Global ounce: live TGJU uses "ons" (انس); "once"/"ounce" kept for compatibility.
+  { symbol: "GOLD_OUNCE",   name: "انس جهانی طلا",    category: "gold",     currency: "USD",   unit: "انس",    tgjuKeys: ["ons", "once", "ounce"], decimals: 2 },
   { symbol: "COIN_EMAMI",   name: "سکه امامی",        category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["sekee"] },
   { symbol: "COIN_BAHAR",   name: "سکه بهار آزادی",   category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["sekeb"] },
   { symbol: "COIN_NIM",     name: "نیم سکه",          category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["nim"] },
   { symbol: "COIN_ROB",     name: "ربع سکه",          category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["rob"] },
   { symbol: "COIN_GERAMI",  name: "سکه گرمی",         category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["gerami"] },
+  // Currencies: live TGJU ajax.json exposes "price_eur"/"price_gbp"/... keys.
   { symbol: "USD",          name: "دلار آمریکا",      category: "currency", currency: "TOMAN", unit: "دلار",   tgjuKeys: ["price_dollar_rl"] },
-  { symbol: "EUR",          name: "یورو",             category: "currency", currency: "TOMAN", unit: "یورو",   tgjuKeys: ["eur"] },
-  { symbol: "GBP",          name: "پوند انگلیس",      category: "currency", currency: "TOMAN", unit: "پوند",   tgjuKeys: ["gbp"] },
-  { symbol: "AED",          name: "درهم امارات",      category: "currency", currency: "TOMAN", unit: "درهم",   tgjuKeys: ["aed"] },
-  { symbol: "TRY",          name: "لیر ترکیه",        category: "currency", currency: "TOMAN", unit: "لیر",    tgjuKeys: ["try"] },
-  { symbol: "CNY",          name: "یوان چین",         category: "currency", currency: "TOMAN", unit: "یوان",   tgjuKeys: ["cny"] },
-  { symbol: "CHF",          name: "فرانک سوئیس",      category: "currency", currency: "TOMAN", unit: "فرانک",  tgjuKeys: ["chf"] },
-  { symbol: "USDT",         name: "تتر",              category: "crypto",   currency: "TOMAN", unit: "تتر",    tgjuKeys: ["crypto_tether"], nobitex: "usdt" },
-  { symbol: "BTC",          name: "بیت‌کوین",         category: "crypto",   currency: "TOMAN", unit: "بیت‌کوین", nobitex: "btc" },
+  { symbol: "EUR",          name: "یورو",             category: "currency", currency: "TOMAN", unit: "یورو",   tgjuKeys: ["price_eur", "eur"] },
+  { symbol: "GBP",          name: "پوند انگلیس",      category: "currency", currency: "TOMAN", unit: "پوند",   tgjuKeys: ["price_gbp", "gbp"] },
+  { symbol: "AED",          name: "درهم امارات",      category: "currency", currency: "TOMAN", unit: "درهم",   tgjuKeys: ["price_aed", "aed"] },
+  { symbol: "TRY",          name: "لیر ترکیه",        category: "currency", currency: "TOMAN", unit: "لیر",    tgjuKeys: ["price_try", "try"] },
+  { symbol: "CNY",          name: "یوان چین",         category: "currency", currency: "TOMAN", unit: "یوان",   tgjuKeys: ["price_cny", "cny"] },
+  { symbol: "CHF",          name: "فرانک سوئیس",      category: "currency", currency: "TOMAN", unit: "فرانک",  tgjuKeys: ["price_chf", "chf"] },
+  // Crypto: Nobitex preferred; TGJU "-irr" keys are the fallback when Nobitex is unreachable.
+  { symbol: "USDT",         name: "تتر",              category: "crypto",   currency: "TOMAN", unit: "تتر",    tgjuKeys: ["crypto-tether-irr"], nobitex: "usdt" },
+  { symbol: "BTC",          name: "بیت‌کوین",         category: "crypto",   currency: "TOMAN", unit: "بیت‌کوین", tgjuKeys: ["crypto-bitcoin-irr", "btc-irr"], nobitex: "btc" },
 ];
 
 export const ASSET_BY_SYMBOL = Object.fromEntries(ASSETS.map((a) => [a.symbol, a]));
