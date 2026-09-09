@@ -87,7 +87,7 @@ jobs:
           TAG: ${{ steps.tag.outputs.tag }}
         run: |
           mkdir -p "$RUNNER_TEMP"
-          cat > "$RUNNER_TEMP/RELEASE_NOTES.md" <<'EOF'
+          cat > "$RUNNER_TEMP/RELEASE_NOTES.md" <<EOF
           # طلایار (Talayar) — بازار طلا، سکه و ارز
 
           قیمت لحظه‌ای طلا، سکه و ارزهای مهم بازار ایران با رابط کاربری فارسی، حالت تیره، نمودار قیمت، علاقه‌مندی‌ها و هشدار قیمت.
