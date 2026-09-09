@@ -36,11 +36,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Checkout gh-pages state (previous snapshot)
+        id: ghpages
         uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: public
         continue-on-error: true
+
+      # First run ever (no gh-pages branch): the checkout above fails and `public`
+      # is not a git repo. Bootstrap an orphan gh-pages worktree sharing the main
+      # checkout's credentials so the publisher output can be committed & pushed.
+      - name: Bootstrap gh-pages worktree if missing
+        if: steps.ghpages.outcome == 'failure'
+        run: |
+          rm -rf public
+          git worktree add --orphan -b gh-pages public
+          touch public/.nojekyll
 
       - name: Run price snapshot publisher
         id: publish
