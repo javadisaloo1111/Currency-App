@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FavoriteDao {
 
-    @Query("SELECT * FROM favorites")
+    @Query("SELECT * FROM favorites ORDER BY symbol")
     fun observeAll(): Flow<List<FavoriteEntity>>
 
-    @Query("SELECT symbol FROM favorites")
+    @Query("SELECT symbol FROM favorites ORDER BY symbol")
     fun observeSymbols(): Flow<List<String>>
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE symbol = :symbol)")

@@ -83,7 +83,7 @@ class AssetDetailViewModelTest {
         advanceUntilIdle()
 
         assertEquals(HistoryRange.Y1, vm.uiState.value.range)
-        assertEquals(1, repository.historyResult.getOrThrow().ranges.size) // unchanged repo result
+        assertEquals(1, repository.historyCalls) // fetched once at init; range switch must not refetch
     }
 
     @Test

@@ -130,7 +130,7 @@ object Formatters {
     }
 }
 
-/** Solar Hijri (Jalali) calendar conversion — standard jalaali algorithm. */
+/** Solar Hijri (Jalali) calendar conversion — standard jalali.c algorithm. */
 object Jalali {
     private val G_D_M = intArrayOf(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
     val MONTH_NAMES = arrayOf(
@@ -140,11 +140,12 @@ object Jalali {
 
     /** Returns (day, monthName). */
     fun toJalaliParts(gy: Int, gm: Int, gd: Int): Pair<Int, String> {
-        val jy0 = if (gy > 1600) 979 else 0
-        val gy2 = if (gy > 1600) gy - 1600 else gy
-        val gd2 = if (gm > 2) gd + 1 else gd
+        val gy2 = gy - 1600
+        // Gregorian leap day correction — only after February, only in leap years.
+        val gLeap = (gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)
+        val gd2 = gd + (if (gm > 2 && gLeap) 1 else 0)
         var days = 365L * gy2 + (gy2 + 3) / 4 - (gy2 + 99) / 100 + (gy2 + 399) / 400 - 80 + gd2 + G_D_M[gm - 1]
-        var jy = jy0.toLong()
+        var jy = 979L
         jy += 33L * (days / 12053); days %= 12053
         jy += 4L * (days / 1461); days %= 1461
         if (days > 365) {

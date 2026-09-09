@@ -131,7 +131,7 @@ class DaoTest {
         dao.insert(FavoriteEntity("USD"))
         dao.insert(FavoriteEntity("GOLD_18K"))
         assertTrue(dao.isFavorite("USD"))
-        assertEquals(listOf("USD", "GOLD_18K"), dao.observeSymbols().first())
+        assertEquals(listOf("GOLD_18K", "USD"), dao.observeSymbols().first()) // alphabetical order
 
         dao.delete("USD")
         assertFalse(dao.isFavorite("USD"))

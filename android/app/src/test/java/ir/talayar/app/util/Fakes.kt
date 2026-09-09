@@ -227,6 +227,8 @@ class FakeMarketRepository : MarketRepository {
     var refreshResult: Result<Unit> = Result.success(Unit)
     var refreshCalls = 0
     var historyResult: Result<PriceHistory> = Result.success(PriceHistory("X", emptyMap(), 0))
+    var historyCalls = 0
+        private set
     val toggledFavorites = mutableListOf<String>()
     val addedAlerts = mutableListOf<AlertRule>()
     val removedAlerts = mutableListOf<Long>()
@@ -245,7 +247,10 @@ class FakeMarketRepository : MarketRepository {
         return refreshResult
     }
 
-    override suspend fun getHistory(symbol: String): Result<PriceHistory> = historyResult
+    override suspend fun getHistory(symbol: String): Result<PriceHistory> {
+        historyCalls++
+        return historyResult
+    }
 
     override fun observeFavorites(): Flow<List<MarketAsset>> =
         combine(assets, favorites) { list, favs -> list.filter { it.symbol in favs } }

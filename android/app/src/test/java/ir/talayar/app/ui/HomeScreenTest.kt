@@ -23,7 +23,7 @@ import org.robolectric.annotation.Config
  *  - error state with retry callback
  */
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [34], qualifiers = "fa-IR")
+@Config(sdk = [34], qualifiers = "fa-rIR")
 class HomeScreenTest {
 
     @get:Rule
