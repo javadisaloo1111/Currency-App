@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -90,7 +92,7 @@ fun MarketScreen(
                 state.isLoading -> ListSkeleton(items = 9)
 
                 state.filtered.isEmpty() && state.query.isNotBlank() -> EmptyState(
-                    icon = androidx.compose.material.icons.Icons.Rounded.Search,
+                    icon = Icons.Rounded.Search,
                     title = "دارایی یافت نشد",
                     message = "عبارت «${state.query}» با هیچ دارایی‌ای مطابقت ندارد.",
                 )
