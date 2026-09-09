@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-09T11:37:40.074Z",
- "generated_at": "2026-09-09T11:37:40.074Z",
+ "updated_at": "2026-09-09T11:39:30.418Z",
+ "generated_at": "2026-09-09T11:39:30.418Z",
  "is_stale": false,
  "data": [
   {
@@ -16,7 +16,7 @@
    "day_low": 2276600,
    "prev_price": 2267000,
    "source": "tgju",
-   "updated_at": "2026-09-09T11:37:40.074Z",
+   "updated_at": "2026-09-09T11:39:30.418Z",
    "is_stale": false
   }
  ]
