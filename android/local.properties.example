@@ -1,0 +1,9 @@
+# Copy this file to `local.properties` (gitignored) and adjust values.
+#   - sdk.dir: path to your local Android SDK
+#   - apiBaseUrl is passed as a Gradle property, e.g.:
+#       ./gradlew assembleDebug -PapiBaseUrl=https://your-price-gateway.example/
+#
+# NOTE: never put API keys or secrets here. The app contains no secrets;
+# all provider keys live on the backend (see backend/.env.example).
+
+sdk.dir=/opt/android-sdk

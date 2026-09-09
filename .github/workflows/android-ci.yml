@@ -1,0 +1,91 @@
+name: Android CI
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "android/**"
+      - ".github/workflows/android-ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: android-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build, Test & Assemble APK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Clean, run unit tests and assemble release
+        run: |
+          set +e
+          # Debug-variant unit tests (Robolectric Compose tests need the debug
+          # ui-test-manifest activity; release classes are identical here since
+          # minification is disabled). Release APK is still assembled + verified.
+          ./gradlew clean testDebugUnitTest assembleRelease --stacktrace 2>&1 | tee gradle-output.log
+          code=${PIPESTATUS[0]}
+          echo "GRADLE_EXIT=$code" >> "$GITHUB_ENV"
+          exit $code
+        continue-on-error: true
+
+      # Surface failing unit tests + build errors as check annotations.
+      # GitHub caps error annotations at 10 per job: tests get priority.
+      - name: Report gradle result
+        if: always()
+        run: |
+          echo "=== gradle exit: ${GRADLE_EXIT:-unset} ==="
+          if ls app/build/test-results/test*UnitTest/*.xml >/dev/null 2>&1; then
+            python3 -c "import glob, xml.etree.ElementTree as ET; res = [print('::error::TEST FAILED ' + tc.get('classname') + '.' + tc.get('name') + ' :: ' + ((fail.get('message') or '').replace(chr(10), ' '))[:350]) for f in sorted(glob.glob('app/build/test-results/test*UnitTest/*.xml')) for tc in ET.parse(f).getroot().iter('testcase') for fail in list(tc.iter('failure')) + list(tc.iter('error'))][:8]"
+            grep -h "at ir.talayar" app/build/test-results/test*UnitTest/*.xml 2>/dev/null | sed 's/^ *//' | sort -u | head -6 | while IFS= read -r frame; do
+              echo "::notice::FRAME $frame"
+            done
+          else
+            echo "(no unit test results)"
+          fi
+          echo "--- error lines ---"
+          grep -E "^e: |error: |Execution failed|What went wrong|Caused by:|Could not |SDK location" gradle-output.log | head -10 || echo "(no error lines)"
+          echo "--- log tail ---"
+          tail -n 12 gradle-output.log
+          # Error annotations (within GitHub's 10-per-job cap):
+          grep -E "^e: |error: |Execution failed|What went wrong|Caused by:" gradle-output.log | sort -u | head -6 | while IFS= read -r line; do
+            echo "::error::${line:0:450}"
+          done
+          tail -n 5 gradle-output.log | while IFS= read -r line; do
+            echo "::notice::TAIL: ${line:0:250}"
+          done
+          if [ "${GRADLE_EXIT:-1}" != "0" ]; then
+            echo "::error::Gradle failed with exit ${GRADLE_EXIT:-unset}"
+            exit 1
+          fi
+
+      - name: Upload APK artifact
+        if: env.GRADLE_EXIT == '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: android/app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+
+      - name: Upload gradle output on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-output
+          path: android/gradle-output.log
+          if-no-files-found: warn
