@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-09T14:52:27.226Z",
- "generated_at": "2026-09-09T14:52:27.226Z",
+ "updated_at": "2026-09-09T15:13:57.826Z",
+ "generated_at": "2026-09-09T15:13:57.826Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 242502000,
-   "change": 6268000,
-   "change_percent": 2.65,
+   "price": 242174000,
+   "change": 5940000,
+   "change_percent": 2.51,
    "day_high": 243328000,
    "day_low": 236223000,
    "prev_price": 236234000,
    "source": "tgju",
-   "updated_at": "2026-09-09T14:52:27.226Z",
+   "updated_at": "2026-09-09T15:13:57.826Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 323333000,
-   "change": 8357000,
-   "change_percent": 2.65,
+   "price": 322895000,
+   "change": 7919000,
+   "change_percent": 2.51,
    "day_high": 324434000,
    "day_low": 314960000,
    "prev_price": 314976000,
    "source": "tgju",
-   "updated_at": "2026-09-09T14:52:27.226Z",
+   "updated_at": "2026-09-09T15:13:57.826Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "مثقال",
-   "price": 1050450000,
-   "change": 27180000,
-   "change_percent": 2.66,
+   "price": 1049040000,
+   "change": 25770000,
+   "change_percent": 2.52,
    "day_high": 1054050000,
    "day_low": 1039950000,
    "prev_price": 1023270000,
    "source": "tgju",
-   "updated_at": "2026-09-09T14:52:27.226Z",
+   "updated_at": "2026-09-09T15:13:57.826Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "USD",
    "unit": "انس",
-   "price": 4418.98,
-   "change": 60.51,
-   "change_percent": 1.39,
+   "price": 4402.27,
+   "change": 43.8,
+   "change_percent": 1,
    "day_high": 4432.77,
    "day_low": 4342.19,
    "prev_price": 4358.47,
    "source": "tgju",
-   "updated_at": "2026-09-09T14:52:27.226Z",
+   "updated_at": "2026-09-09T15:13:57.826Z",
    "is_stale": false
   }
  ]
