@@ -89,6 +89,10 @@ class HomeViewModel @Inject constructor(
         refresh()
     }
 
+    fun toggleFavorite(symbol: String) {
+        viewModelScope.launch { toggleFavoriteUseCase(symbol) }
+    }
+
     fun refresh(silent: Boolean = true) {
         if (refreshState.value is RefreshState.Running) return
         viewModelScope.launch {

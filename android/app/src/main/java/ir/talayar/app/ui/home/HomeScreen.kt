@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -195,7 +197,7 @@ private fun MiniStatCard(asset: MarketAsset, onClick: () -> Unit, modifier: Modi
 @Composable
 fun HomeEmptyFavoritesHint() {
     EmptyState(
-        icon = androidx.compose.material.icons.Icons.Rounded.FavoriteBorder,
+        icon = Icons.Rounded.FavoriteBorder,
         title = "هنوز دارایی مورد علاقه‌ای ندارید",
         message = "با لمس آیکن قلب، دارایی‌های مهم خود را به علاقه‌مندی‌ها اضافه کنید.",
     )
