@@ -58,7 +58,14 @@ jobs:
           echo "--- error lines ---"
           grep -E "^e: |error: |Execution failed|What went wrong|Caused by:|Could not |SDK location" gradle-output.log | head -10 || echo "(no error lines)"
           echo "--- log tail ---"
-          tail -n 10 gradle-output.log
+          tail -n 12 gradle-output.log
+          # Error annotations (within GitHub's 10-per-job cap):
+          grep -E "^e: |error: |Execution failed|What went wrong|Caused by:" gradle-output.log | sort -u | head -6 | while IFS= read -r line; do
+            echo "::error::${line:0:450}"
+          done
+          tail -n 5 gradle-output.log | while IFS= read -r line; do
+            echo "::notice::TAIL: ${line:0:250}"
+          done
           if [ "${GRADLE_EXIT:-1}" != "0" ]; then
             echo "::error::Gradle failed with exit ${GRADLE_EXIT:-unset}"
             exit 1
