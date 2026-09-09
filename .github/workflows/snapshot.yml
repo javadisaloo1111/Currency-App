@@ -18,8 +18,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: price-snapshot
@@ -76,18 +74,15 @@ jobs:
             git push origin gh-pages
           fi
 
-      - name: Configure GitHub Pages
-        if: steps.publish.outputs.changed == 'true'
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload Pages artifact
-        if: steps.publish.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-
-      - name: Deploy to GitHub Pages
-        if: steps.publish.outputs.changed == 'true'
-        uses: actions/deploy-pages@v4
+      # Pages is served directly from the gh-pages branch ("Deploy from a branch").
+      # Enabling the site requires repo admin (the CI token cannot create it):
+      #   Settings → Pages → Source: "Deploy from a branch" → gh-pages / (root)
+      - name: Pages status
+        run: |
+          if git ls-remote --exit-code --heads origin gh-pages > /dev/null; then
+            echo "Snapshot published to the gh-pages branch."
+            echo "API base: https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/api/v1/"
+          else
+            echo "gh-pages branch missing — snapshot was not published."
+            exit 1
+          fi
