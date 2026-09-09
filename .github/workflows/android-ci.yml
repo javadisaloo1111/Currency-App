@@ -48,21 +48,7 @@ jobs:
         run: |
           echo "=== gradle exit: ${GRADLE_EXIT:-unset} ==="
           if ls app/build/test-results/testDebugUnitTest/*.xml >/dev/null 2>&1; then
-            python3 -c "
-import glob, xml.etree.ElementTree as ET
-n = 0
-for f in sorted(glob.glob('app/build/test-results/testDebugUnitTest/*.xml')):
-    root = ET.parse(f).getroot()
-    for tc in root.iter('testcase'):
-        for fail in list(tc.iter('failure')) + list(tc.iter('error')):
-            if n >= 8: break
-            n += 1
-            name = tc.get('classname') + '.' + tc.get('name')
-            msg = (fail.get('message') or '').replace(chr(10), ' ')[:350]
-            print('::error::TEST FAILED ' + name + ' :: ' + msg)
-if n:
-    print('::notice::' + str(n) + ' failing tests (first 8 shown)')
-"
+            python3 -c "import glob, xml.etree.ElementTree as ET; res = [print('::error::TEST FAILED ' + tc.get('classname') + '.' + tc.get('name') + ' :: ' + ((fail.get('message') or '').replace(chr(10), ' '))[:350]) for f in sorted(glob.glob('app/build/test-results/testDebugUnitTest/*.xml')) for tc in ET.parse(f).getroot().iter('testcase') for fail in list(tc.iter('failure')) + list(tc.iter('error'))][:8]"
           else
             echo "(no unit test results)"
           fi
