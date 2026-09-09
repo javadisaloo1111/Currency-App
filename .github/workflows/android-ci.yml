@@ -68,6 +68,28 @@ jobs:
             exit 1
           fi
 
+      - name: Report failing unit tests
+        if: always()
+        run: |
+          if ls app/build/test-results/testDebugUnitTest/*.xml >/dev/null 2>&1; then
+            python3 - <<'EOF'
+            import glob, xml.etree.ElementTree as ET
+            n = 0
+            for f in sorted(glob.glob('app/build/test-results/testDebugUnitTest/*.xml')):
+                root = ET.parse(f).getroot()
+                for tc in root.iter('testcase'):
+                    for fail in list(tc.iter('failure')) + list(tc.iter('error')):
+                        if n >= 10: break
+                        n += 1
+                        name = f"{tc.get('classname')}.{tc.get('name')}"
+                        msg = (fail.get('message') or '').replace('\n',' ')[:350]
+                        print(f"::error::TEST FAILED {name} :: {msg}")
+            print(f"::notice::{n} failing tests reported")
+            EOF
+          else
+            echo "(no unit test results)"
+          fi
+
       - name: Upload APK artifact
         if: env.GRADLE_EXIT == '0'
         uses: actions/upload-artifact@v4
