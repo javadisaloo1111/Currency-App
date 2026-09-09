@@ -53,8 +53,8 @@ jobs:
           tail -n 10 gradle-output.log
           echo "--- build outputs ---"
           find app/build/outputs -type f 2>/dev/null | head -10 || echo "(no outputs)"
-          # Annotations for external readers:
-          grep -E "^e: |error: |Execution failed|What went wrong|Caused by:" gradle-output.log | head -8 | while IFS= read -r line; do
+          # Annotations for external readers (unique error lines, up to 10):
+          grep -E "^e: |error: |Execution failed|What went wrong|Caused by:" gradle-output.log | sort -u | head -10 | while IFS= read -r line; do
             echo "::error::${line:0:500}"
           done
           tail -n 3 gradle-output.log | while IFS= read -r line; do

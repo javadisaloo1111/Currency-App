@@ -22,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val refreshPrices: RefreshPricesUseCase,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
     observeMarket: ObserveMarketUseCase,
     observeFavorites: ObserveFavoritesUseCase,
     settingsRepository: SettingsRepository,
