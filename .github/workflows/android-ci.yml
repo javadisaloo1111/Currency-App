@@ -48,20 +48,21 @@ jobs:
         run: |
           echo "=== gradle exit: ${GRADLE_EXIT:-unset} ==="
           if ls app/build/test-results/testDebugUnitTest/*.xml >/dev/null 2>&1; then
-            python3 - <<'EOF'
-            import glob, xml.etree.ElementTree as ET
-            n = 0
-            for f in sorted(glob.glob('app/build/test-results/testDebugUnitTest/*.xml')):
-                root = ET.parse(f).getroot()
-                for tc in root.iter('testcase'):
-                    for fail in list(tc.iter('failure')) + list(tc.iter('error')):
-                        if n >= 8: break
-                        n += 1
-                        name = f"{tc.get('classname')}.{tc.get('name')}"
-                        msg = (fail.get('message') or '').replace('\n',' ')[:350]
-                        print(f"::error::TEST FAILED {name} :: {msg}")
-            if n: print(f"::notice::{n} failing tests (first 8 shown)")
-            EOF
+            python3 -c "
+import glob, xml.etree.ElementTree as ET
+n = 0
+for f in sorted(glob.glob('app/build/test-results/testDebugUnitTest/*.xml')):
+    root = ET.parse(f).getroot()
+    for tc in root.iter('testcase'):
+        for fail in list(tc.iter('failure')) + list(tc.iter('error')):
+            if n >= 8: break
+            n += 1
+            name = tc.get('classname') + '.' + tc.get('name')
+            msg = (fail.get('message') or '').replace(chr(10), ' ')[:350]
+            print('::error::TEST FAILED ' + name + ' :: ' + msg)
+if n:
+    print('::notice::' + str(n) + ' failing tests (first 8 shown)')
+"
           else
             echo "(no unit test results)"
           fi
