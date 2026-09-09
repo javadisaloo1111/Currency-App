@@ -146,6 +146,10 @@ dependencies {
     testImplementation("androidx.room:room-testing:2.6.1")
     testImplementation(platform("androidx.compose:compose-bom:2024.12.01"))
     testImplementation("androidx.compose.ui:ui-test-junit4")
+    // ComponentActivity declaration for createComposeRule() under Robolectric —
+    // needed on the release-variant test classpath too (debug-only ui-test-manifest
+    // leaves release unit tests without a resolvable activity).
+    testImplementation("androidx.compose.ui:ui-test-manifest")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
