@@ -288,6 +288,17 @@ async function main() {
     tgju_host_used: tgju.host,
     tgju_key_count: tgju.current ? Object.keys(tgju.current).length : 0,
     tgju_keys: tgju.current ? Object.keys(tgju.current).sort() : [],
+    // Raw entries for keys whose unit/scale needs verification (diagnostics).
+    probe: tgju.current
+      ? Object.fromEntries(
+          [
+            "ons", "price_eur", "price_gbp", "price_aed", "price_try", "price_cny", "price_chf",
+            "crypto-tether", "crypto-tether-irr", "crypto-bitcoin-irr", "btc-irr",
+          ]
+            .filter((k) => tgju.current[k])
+            .map((k) => [k, tgju.current[k]]),
+        )
+      : {},
     mapped_symbols: freshQuotes.map((q) => `${q.symbol}:${q.source}`),
     carried_forward: carryForward.map((q) => q.symbol),
     missing,
