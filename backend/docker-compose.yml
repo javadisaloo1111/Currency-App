@@ -1,0 +1,38 @@
+# Talayar Price Gateway — self-hosted deployment
+#
+#   cp .env.example .env   # adjust if needed
+#   docker compose up -d --build
+#
+# The gateway then serves http://<host>:8080/api/v1/...
+# Point the Android app to it: تنظیمات ← آدرس سرور ← https://your-host/
+
+services:
+  price-gateway:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    container_name: talayar-price-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/v1/health.json').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # Optional: front it with Caddy for automatic HTTPS (recommended for production)
+  # caddy:
+  #   image: caddy:2-alpine
+  #   restart: unless-stopped
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile:ro
+  #   depends_on:
+  #     - price-gateway
