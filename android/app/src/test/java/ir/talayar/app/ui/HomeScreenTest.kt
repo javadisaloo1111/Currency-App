@@ -23,7 +23,7 @@ import org.robolectric.annotation.Config
  *  - error state with retry callback
  */
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [34], qualifiers = "fa-rIR")
+@Config(sdk = [34], qualifiers = "fa-rIR-w411dp-h900dp")
 class HomeScreenTest {
 
     @get:Rule
@@ -53,14 +53,15 @@ class HomeScreenTest {
             asset("USD", "دلار آمریکا", AssetCategory.CURRENCY, 104_850.0, -0.21),
             asset("COIN_EMAMI", "سکه امامی", AssetCategory.COIN, 60_150_000.0, 0.59),
         ),
+        // Featured asset is intentionally NOT repeated in overview/topMovers so
+        // text nodes stay unique for semantics lookups.
         featured = asset("GOLD_18K", "طلای ۱۸ عیار", AssetCategory.GOLD, 6_703_000.0, 1.75),
         overview = listOf(
-            asset("GOLD_18K", "طلای ۱۸ عیار", AssetCategory.GOLD, 6_703_000.0, 1.75),
             asset("USD", "دلار آمریکا", AssetCategory.CURRENCY, 104_850.0, -0.21),
             asset("COIN_EMAMI", "سکه امامی", AssetCategory.COIN, 60_150_000.0, 0.59),
         ),
         topMovers = listOf(
-            asset("GOLD_18K", "طلای ۱۸ عیار", AssetCategory.GOLD, 6_703_000.0, 1.75),
+            asset("COIN_EMAMI", "سکه امامی", AssetCategory.COIN, 60_150_000.0, 0.59),
         ),
         updatedAt = 1_757_400_751_000,
     )

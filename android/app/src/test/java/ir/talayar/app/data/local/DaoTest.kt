@@ -155,6 +155,11 @@ class DaoTest {
         assertTrue(dao.enabledAlerts().isEmpty())
 
         dao.delete(id)
+        val remaining = dao.observeAll().first()
+        assertEquals(1, remaining.size)
+        assertEquals("EUR", remaining.single().symbol)
+
+        dao.delete(remaining.single().id)
         assertTrue(dao.observeAll().first().isEmpty())
     }
 }
