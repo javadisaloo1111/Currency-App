@@ -30,7 +30,7 @@ class FavoritesViewModelTest {
         refreshPrices = RefreshPricesUseCase(repository),
         toggleFavoriteUseCase = ToggleFavoriteUseCase(repository),
         observeFavorites = ObserveFavoritesUseCase(repository),
-        networkMonitor = connectivity,
+        connectivity = connectivity,
     )
 
     @Test

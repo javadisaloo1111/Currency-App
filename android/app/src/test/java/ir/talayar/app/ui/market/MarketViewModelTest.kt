@@ -33,7 +33,7 @@ class MarketViewModelTest {
         toggleFavoriteUseCase = ToggleFavoriteUseCase(repository),
         observeMarket = ObserveMarketUseCase(repository),
         settingsRepository = FakeSettingsRepository(),
-        networkMonitor = connectivity,
+        connectivity = connectivity,
     )
 
     @Test

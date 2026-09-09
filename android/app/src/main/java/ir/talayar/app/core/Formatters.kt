@@ -2,9 +2,11 @@ package ir.talayar.app.core
 
 import ir.talayar.app.data.settings.PriceUnit
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 /**
  * Persian-first formatting utilities for prices, percents and timestamps.

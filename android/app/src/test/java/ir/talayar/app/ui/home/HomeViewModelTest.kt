@@ -39,7 +39,7 @@ class HomeViewModelTest {
         observeMarket = ObserveMarketUseCase(repository),
         observeFavorites = ObserveFavoritesUseCase(repository),
         settingsRepository = settings,
-        networkMonitor = connectivity,
+        connectivity = connectivity,
     )
 
     @Test
