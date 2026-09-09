@@ -64,6 +64,7 @@ jobs:
         if: steps.publish.outputs.changed == 'true'
         working-directory: public
         run: |
+          set -x
           git config user.name "talayar-price-bot"
           git config user.email "actions@github.com"
           git add -A
@@ -71,7 +72,8 @@ jobs:
             echo "No snapshot changes to commit."
           else
             git commit -m "snapshot: $(date -u '+%Y-%m-%d %H:%M') UTC"
-            git push
+            # No upstream on a freshly bootstrapped orphan worktree: push the ref explicitly.
+            git push origin gh-pages
           fi
 
       - name: Configure GitHub Pages
