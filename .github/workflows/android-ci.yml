@@ -35,7 +35,10 @@ jobs:
       - name: Clean, run unit tests and assemble release
         run: |
           set +e
-          ./gradlew clean test assembleRelease --stacktrace 2>&1 | tee gradle-output.log
+          # Debug-variant unit tests (Robolectric Compose tests need the debug
+          # ui-test-manifest activity; release classes are identical here since
+          # minification is disabled). Release APK is still assembled + verified.
+          ./gradlew clean testDebugUnitTest assembleRelease --stacktrace 2>&1 | tee gradle-output.log
           code=${PIPESTATUS[0]}
           echo "GRADLE_EXIT=$code" >> "$GITHUB_ENV"
           exit $code

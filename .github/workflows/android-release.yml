@@ -80,7 +80,7 @@ jobs:
           TALAYAR_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           TALAYAR_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           TALAYAR_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: ./gradlew clean test assembleRelease --stacktrace
+        run: ./gradlew clean testDebugUnitTest assembleRelease --stacktrace
 
       - name: Write release notes
         env:
