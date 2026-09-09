@@ -1,0 +1,51 @@
+# ===== Android =====
+android/local.properties
+android/.gradle/
+android/build/
+android/app/build/
+android/.idea/
+android/captures/
+android/.kotlin/
+
+# Android signing / secrets — never commit these
+*.jks
+*.keystore
+*.p12
+*.pem
+*.b64
+keystore.properties
+secrets.properties
+
+# Build outputs (APKs are attached to GitHub Releases, not committed)
+*.apk
+*.aab
+
+# ===== Backend =====
+backend/node_modules/
+backend/dist/
+backend/coverage/
+backend/data/
+backend/.env
+
+# Environment files — keep examples only
+.env
+.env.*
+!.env.example
+
+# ===== Node =====
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ===== IDE / OS =====
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ===== Misc =====
+*.log
+.tmp/
+tmp/

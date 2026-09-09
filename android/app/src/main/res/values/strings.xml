@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">طلایار</string>
+    <string name="app_name_latin">Talayar</string>
+    <string name="channel_price_alerts">هشدار قیمت</string>
+    <string name="channel_price_alerts_desc">اعلان‌های عبور قیمت از حد تعیین‌شده</string>
+    <string name="notification_alert_title">هشدار قیمت</string>
+    <string name="settings">تنظیمات</string>
+</resources>

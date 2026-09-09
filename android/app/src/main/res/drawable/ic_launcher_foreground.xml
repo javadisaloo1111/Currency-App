@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Gold coin -->
+    <path
+        android:fillColor="#E9BA4E"
+        android:pathData="M54,28 A26,26 0 1,1 53.99,28 Z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,31.5 A22.5,22.5 0 1,1 53.99,31.5 Z"
+        android:strokeColor="#B98F2C"
+        android:strokeWidth="2.5" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,35.5 A18.5,18.5 0 1,1 53.99,35.5 Z"
+        android:strokeColor="#F4D98B"
+        android:strokeWidth="1.5" />
+
+    <!-- Market trend line -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M41,61 L49,53 L55,58 L65.5,47.5"
+        android:strokeColor="#221E14"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="4.5" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M65.5,47.5 L59.5,48 M65.5,47.5 L64.8,53.5"
+        android:strokeColor="#221E14"
+        android:strokeLineCap="round"
+        android:strokeWidth="4.5" />
+</vector>

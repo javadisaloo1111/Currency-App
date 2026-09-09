@@ -1,0 +1,80 @@
+name: Price Snapshot
+
+# Serverless price aggregator:
+#   TGJU (multi-host failover) + Nobitex  →  normalized static API on GitHub Pages.
+# Runs every 10 minutes (schedule works from the default branch only),
+# and can always be triggered manually.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  push:
+    branches: ["**"]
+    paths:
+      - "scripts/**"
+      - "shared/**"
+      - ".github/workflows/snapshot.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: price-snapshot
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Aggregate prices & publish static API
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.publish.outputs.changed }}
+    steps:
+      - name: Checkout repository (scripts)
+        uses: actions/checkout@v4
+
+      - name: Checkout gh-pages state (previous snapshot)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: public
+        continue-on-error: true
+
+      - name: Run price snapshot publisher
+        id: publish
+        env:
+          OUT_DIR: public
+          SNAPSHOT_DIR: ${{ github.workspace }}/public
+        run: node scripts/snapshot-publisher.mjs
+
+      - name: Commit snapshot to gh-pages
+        if: steps.publish.outputs.changed == 'true'
+        working-directory: public
+        run: |
+          git config user.name "talayar-price-bot"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit."
+          else
+            git commit -m "snapshot: $(date -u '+%Y-%m-%d %H:%M') UTC"
+            git push
+          fi
+
+      - name: Configure GitHub Pages
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload Pages artifact
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/deploy-pages@v4

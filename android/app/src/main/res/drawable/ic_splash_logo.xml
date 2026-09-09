@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Splash logo: gold coin with rising market line -->
+    <path
+        android:fillColor="#E9BA4E"
+        android:pathData="M54,26 A28,28 0 1,1 53.99,26 Z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,30 A24,24 0 1,1 53.99,30 Z"
+        android:strokeColor="#B98F2C"
+        android:strokeWidth="2.5" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,34.5 A19.5,19.5 0 1,1 53.99,34.5 Z"
+        android:strokeColor="#F4D98B"
+        android:strokeWidth="1.5" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M40,62 L48.5,53.5 L54.5,58.5 L66,47"
+        android:strokeColor="#131417"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="5" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M66,47 L59.5,47.7 M66,47 L65.3,53.4"
+        android:strokeColor="#131417"
+        android:strokeLineCap="round"
+        android:strokeWidth="5" />
+</vector>
