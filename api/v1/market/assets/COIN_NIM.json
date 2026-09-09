@@ -1,0 +1,17 @@
+{
+ "symbol": "COIN_NIM",
+ "name": "نیم سکه",
+ "category": "coin",
+ "currency": "TOMAN",
+ "unit": "عدد",
+ "price": 1230000000,
+ "change": 40000000,
+ "change_percent": 3.36,
+ "day_high": 1230000000,
+ "day_low": 1220000000,
+ "prev_price": 1190000000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T11:37:40.074Z"
+}

@@ -1,0 +1,23 @@
+{
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "generated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "data": [
+  {
+   "symbol": "USD",
+   "name": "دلار آمریکا",
+   "category": "currency",
+   "currency": "TOMAN",
+   "unit": "دلار",
+   "price": 2327200,
+   "change": 60200,
+   "change_percent": 2.66,
+   "day_high": 2328200,
+   "day_low": 2276600,
+   "prev_price": 2267000,
+   "source": "tgju",
+   "updated_at": "2026-09-09T11:37:40.074Z",
+   "is_stale": false
+  }
+ ]
+}

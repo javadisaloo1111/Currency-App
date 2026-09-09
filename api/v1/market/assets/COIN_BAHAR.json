@@ -1,0 +1,17 @@
+{
+ "symbol": "COIN_BAHAR",
+ "name": "سکه بهار آزادی",
+ "category": "coin",
+ "currency": "TOMAN",
+ "unit": "عدد",
+ "price": 2370550000,
+ "change": 59350000,
+ "change_percent": 2.57,
+ "day_high": 2379000000,
+ "day_low": 2352500000,
+ "prev_price": 2311200000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T11:37:40.074Z"
+}

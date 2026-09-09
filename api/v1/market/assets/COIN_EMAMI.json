@@ -1,0 +1,17 @@
+{
+ "symbol": "COIN_EMAMI",
+ "name": "سکه امامی",
+ "category": "coin",
+ "currency": "TOMAN",
+ "unit": "عدد",
+ "price": 2414800000,
+ "change": 64850000,
+ "change_percent": 2.76,
+ "day_high": 2415100000,
+ "day_low": 2399800000,
+ "prev_price": 2349950000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T11:37:40.074Z"
+}

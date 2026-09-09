@@ -1,0 +1,55 @@
+{
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "generated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "data": [
+  {
+   "symbol": "GOLD_18K",
+   "name": "طلای ۱۸ عیار",
+   "category": "gold",
+   "currency": "TOMAN",
+   "unit": "گرم",
+   "price": 241941000,
+   "change": 5707000,
+   "change_percent": 2.42,
+   "day_high": 242520000,
+   "day_low": 236223000,
+   "prev_price": 236234000,
+   "source": "tgju",
+   "updated_at": "2026-09-09T11:37:40.074Z",
+   "is_stale": false
+  },
+  {
+   "symbol": "GOLD_24K",
+   "name": "طلای ۲۴ عیار",
+   "category": "gold",
+   "currency": "TOMAN",
+   "unit": "گرم",
+   "price": 322585000,
+   "change": 7609000,
+   "change_percent": 2.42,
+   "day_high": 323357000,
+   "day_low": 314960000,
+   "prev_price": 314976000,
+   "source": "tgju",
+   "updated_at": "2026-09-09T11:37:40.074Z",
+   "is_stale": false
+  },
+  {
+   "symbol": "GOLD_MESGHAL",
+   "name": "مثقال طلا",
+   "category": "gold",
+   "currency": "TOMAN",
+   "unit": "مثقال",
+   "price": 1047960000,
+   "change": 24690000,
+   "change_percent": 2.41,
+   "day_high": 1050550000,
+   "day_low": 1039950000,
+   "prev_price": 1023270000,
+   "source": "tgju",
+   "updated_at": "2026-09-09T11:37:40.074Z",
+   "is_stale": false
+  }
+ ]
+}

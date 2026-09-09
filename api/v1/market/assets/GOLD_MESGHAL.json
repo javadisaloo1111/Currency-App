@@ -1,0 +1,17 @@
+{
+ "symbol": "GOLD_MESGHAL",
+ "name": "مثقال طلا",
+ "category": "gold",
+ "currency": "TOMAN",
+ "unit": "مثقال",
+ "price": 1047960000,
+ "change": 24690000,
+ "change_percent": 2.41,
+ "day_high": 1050550000,
+ "day_low": 1039950000,
+ "prev_price": 1023270000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T11:37:40.074Z"
+}

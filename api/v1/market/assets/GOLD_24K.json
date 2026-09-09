@@ -1,0 +1,17 @@
+{
+ "symbol": "GOLD_24K",
+ "name": "طلای ۲۴ عیار",
+ "category": "gold",
+ "currency": "TOMAN",
+ "unit": "گرم",
+ "price": 322585000,
+ "change": 7609000,
+ "change_percent": 2.42,
+ "day_high": 323357000,
+ "day_low": 314960000,
+ "prev_price": 314976000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T11:37:40.074Z"
+}

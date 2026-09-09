@@ -1,0 +1,28 @@
+{
+ "status": "ok",
+ "version": "1.0.0",
+ "time": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "cache": {
+  "assets": 9,
+  "fresh": 9,
+  "stale": 0,
+  "last_success_at": "2026-09-09T11:37:40.074Z"
+ },
+ "sources": [
+  {
+   "name": "tgju",
+   "status": "up",
+   "host": "https://call5.tgju.org",
+   "priority": 1,
+   "response_ms": 558,
+   "error": null
+  },
+  {
+   "name": "nobitex",
+   "status": "down",
+   "priority": 2,
+   "error": "fetch failed"
+  }
+ ]
+}

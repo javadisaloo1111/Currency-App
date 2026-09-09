@@ -1,0 +1,17 @@
+{
+ "symbol": "COIN_GERAMI",
+ "name": "سکه گرمی",
+ "category": "coin",
+ "currency": "TOMAN",
+ "unit": "عدد",
+ "price": 350000000,
+ "change": 10000000,
+ "change_percent": 2.94,
+ "day_high": 350000000,
+ "day_low": 350000000,
+ "prev_price": 340000000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T11:37:40.074Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T11:37:40.074Z"
+}
