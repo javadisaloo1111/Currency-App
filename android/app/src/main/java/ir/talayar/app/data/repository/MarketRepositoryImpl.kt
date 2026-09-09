@@ -10,6 +10,7 @@ import ir.talayar.app.data.mapper.toEntity
 import ir.talayar.app.data.remote.HistoryDto
 import ir.talayar.app.data.remote.MarketApi
 import ir.talayar.app.domain.repository.SettingsRepository
+import ir.talayar.app.domain.model.AlertKind
 import ir.talayar.app.domain.model.AlertRule
 import ir.talayar.app.domain.model.HistoryPoint
 import ir.talayar.app.domain.model.HistoryRange

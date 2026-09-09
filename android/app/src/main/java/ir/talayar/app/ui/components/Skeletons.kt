@@ -52,7 +52,7 @@ fun Modifier.shimmer(): Modifier = composed {
 }
 
 @Composable
-private fun SkeletonBox(modifier: Modifier = Modifier, shape: androidx.compose.ui.graphics.Shape = MaterialTheme.shapes.medium) {
+fun SkeletonBox(modifier: Modifier = Modifier, shape: androidx.compose.ui.graphics.Shape = MaterialTheme.shapes.medium) {
     Box(modifier = modifier.clip(shape).shimmer())
 }
 
