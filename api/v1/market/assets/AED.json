@@ -1,0 +1,17 @@
+{
+ "symbol": "AED",
+ "name": "درهم امارات",
+ "category": "currency",
+ "currency": "TOMAN",
+ "unit": "درهم",
+ "price": 636720,
+ "change": 16010,
+ "change_percent": 2.58,
+ "day_high": 638110,
+ "day_low": 623560,
+ "prev_price": 620710,
+ "source": "tgju",
+ "updated_at": "2026-09-09T13:25:38.006Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T13:25:38.006Z"
+}

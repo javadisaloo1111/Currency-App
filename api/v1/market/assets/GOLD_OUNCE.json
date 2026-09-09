@@ -1,0 +1,17 @@
+{
+ "symbol": "GOLD_OUNCE",
+ "name": "انس جهانی طلا",
+ "category": "gold",
+ "currency": "USD",
+ "unit": "انس",
+ "price": 4404.99,
+ "change": 46.52,
+ "change_percent": 1.07,
+ "day_high": 4413.88,
+ "day_low": 4342.19,
+ "prev_price": 4358.47,
+ "source": "tgju",
+ "updated_at": "2026-09-09T13:25:38.006Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T13:25:38.006Z"
+}

@@ -1,0 +1,17 @@
+{
+ "symbol": "CNY",
+ "name": "یوان چین",
+ "category": "currency",
+ "currency": "TOMAN",
+ "unit": "یوان",
+ "price": 349900,
+ "change": 8800,
+ "change_percent": 2.58,
+ "day_high": 350700,
+ "day_low": 342700,
+ "prev_price": 341100,
+ "source": "tgju",
+ "updated_at": "2026-09-09T13:25:38.006Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T13:25:38.006Z"
+}

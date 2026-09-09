@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-09T13:19:32.232Z",
- "generated_at": "2026-09-09T13:19:32.232Z",
+ "updated_at": "2026-09-09T13:25:38.006Z",
+ "generated_at": "2026-09-09T13:25:38.006Z",
  "is_stale": false,
  "data": [
   {
@@ -16,7 +16,7 @@
    "day_low": 236223000,
    "prev_price": 236234000,
    "source": "tgju",
-   "updated_at": "2026-09-09T13:19:32.232Z",
+   "updated_at": "2026-09-09T13:25:38.006Z",
    "is_stale": false
   },
   {
@@ -32,7 +32,7 @@
    "day_low": 314960000,
    "prev_price": 314976000,
    "source": "tgju",
-   "updated_at": "2026-09-09T13:19:32.232Z",
+   "updated_at": "2026-09-09T13:25:38.006Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,23 @@
    "day_low": 1039950000,
    "prev_price": 1023270000,
    "source": "tgju",
-   "updated_at": "2026-09-09T13:19:32.232Z",
+   "updated_at": "2026-09-09T13:25:38.006Z",
+   "is_stale": false
+  },
+  {
+   "symbol": "GOLD_OUNCE",
+   "name": "انس جهانی طلا",
+   "category": "gold",
+   "currency": "USD",
+   "unit": "انس",
+   "price": 4404.99,
+   "change": 46.52,
+   "change_percent": 1.07,
+   "day_high": 4413.88,
+   "day_low": 4342.19,
+   "prev_price": 4358.47,
+   "source": "tgju",
+   "updated_at": "2026-09-09T13:25:38.006Z",
    "is_stale": false
   }
  ]

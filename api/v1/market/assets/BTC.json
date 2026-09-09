@@ -1,0 +1,17 @@
+{
+ "symbol": "BTC",
+ "name": "بیت‌کوین",
+ "category": "crypto",
+ "currency": "TOMAN",
+ "unit": "بیت‌کوین",
+ "price": 185296155000,
+ "change": 4949424000,
+ "change_percent": 2.74,
+ "day_high": 185297745000,
+ "day_low": 179495080000,
+ "prev_price": 180346731000,
+ "source": "tgju",
+ "updated_at": "2026-09-09T13:25:38.006Z",
+ "is_stale": false,
+ "generated_at": "2026-09-09T13:25:38.006Z"
+}
