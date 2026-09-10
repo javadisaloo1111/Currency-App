@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-10T11:13:44.960Z",
- "generated_at": "2026-09-10T11:13:44.960Z",
+ "updated_at": "2026-09-10T11:32:39.286Z",
+ "generated_at": "2026-09-10T11:32:39.286Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 242502000,
-   "change": -923000,
-   "change_percent": -0.38,
+   "price": 242747000,
+   "change": -678000,
+   "change_percent": -0.28,
    "day_high": 243672000,
-   "day_low": 241805000,
+   "day_low": 241692000,
    "prev_price": 243425000,
    "source": "tgju",
-   "updated_at": "2026-09-10T11:13:44.960Z",
+   "updated_at": "2026-09-10T11:32:39.286Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 323333000,
-   "change": -1231000,
-   "change_percent": -0.38,
+   "price": 323659000,
+   "change": -905000,
+   "change_percent": -0.28,
    "day_high": 324893000,
-   "day_low": 322403000,
+   "day_low": 322252000,
    "prev_price": 324564000,
    "source": "tgju",
-   "updated_at": "2026-09-10T11:13:44.960Z",
+   "updated_at": "2026-09-10T11:32:39.286Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "مثقال",
-   "price": 1050470000,
-   "change": -4050000,
-   "change_percent": -0.39,
+   "price": 1051480000,
+   "change": -3040000,
+   "change_percent": -0.29,
    "day_high": 1055550000,
-   "day_low": 1047450000,
+   "day_low": 1046950000,
    "prev_price": 1054520000,
    "source": "tgju",
-   "updated_at": "2026-09-10T11:13:44.960Z",
+   "updated_at": "2026-09-10T11:32:39.286Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "USD",
    "unit": "انس",
-   "price": 4395.93,
-   "change": -17.95,
-   "change_percent": -0.41,
+   "price": 4385.95,
+   "change": -27.93,
+   "change_percent": -0.64,
    "day_high": 4428.18,
-   "day_low": 4388.64,
+   "day_low": 4376.16,
    "prev_price": 4413.88,
    "source": "tgju",
-   "updated_at": "2026-09-10T11:13:44.960Z",
+   "updated_at": "2026-09-10T11:32:39.286Z",
    "is_stale": false
   }
  ]
