@@ -4,14 +4,14 @@
  "category": "gold",
  "currency": "USD",
  "unit": "انس",
- "price": 4405.72,
- "change": -8.16,
- "change_percent": -0.19,
+ "price": 4394.31,
+ "change": -19.57,
+ "change_percent": -0.45,
  "day_high": 4428.18,
- "day_low": 4396.95,
+ "day_low": 4392.25,
  "prev_price": 4413.88,
  "source": "tgju",
- "updated_at": "2026-09-10T09:14:18.593Z",
+ "updated_at": "2026-09-10T09:33:30.910Z",
  "is_stale": false,
- "generated_at": "2026-09-10T09:14:18.593Z"
+ "generated_at": "2026-09-10T09:33:30.910Z"
 }
