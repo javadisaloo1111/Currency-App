@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-11T09:14:04.392Z",
- "generated_at": "2026-09-11T09:14:04.392Z",
+ "updated_at": "2026-09-11T09:32:27.899Z",
+ "generated_at": "2026-09-11T09:32:27.899Z",
  "is_stale": false,
  "data": [
   {
@@ -16,7 +16,7 @@
    "day_low": 241114000,
    "prev_price": 241814000,
    "source": "tgju",
-   "updated_at": "2026-09-11T09:14:04.392Z",
+   "updated_at": "2026-09-11T09:32:27.899Z",
    "is_stale": false
   },
   {
@@ -32,7 +32,7 @@
    "day_low": 321483000,
    "prev_price": 322415000,
    "source": "tgju",
-   "updated_at": "2026-09-11T09:14:04.392Z",
+   "updated_at": "2026-09-11T09:32:27.899Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,7 @@
    "day_low": 1044450000,
    "prev_price": 1047490000,
    "source": "tgju",
-   "updated_at": "2026-09-11T09:14:04.392Z",
+   "updated_at": "2026-09-11T09:32:27.899Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "USD",
    "unit": "انس",
-   "price": 4352.9,
-   "change": 34.32,
-   "change_percent": 0.79,
+   "price": 4344.31,
+   "change": 25.73,
+   "change_percent": 0.6,
    "day_high": 4359.46,
    "day_low": 4301.42,
    "prev_price": 4318.58,
    "source": "tgju",
-   "updated_at": "2026-09-11T09:14:04.392Z",
+   "updated_at": "2026-09-11T09:32:27.899Z",
    "is_stale": false
   }
  ]
