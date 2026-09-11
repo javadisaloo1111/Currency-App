@@ -4,14 +4,14 @@
  "category": "crypto",
  "currency": "TOMAN",
  "unit": "تتر",
- "price": 2364390,
- "change": 3810,
- "change_percent": 0.16,
- "day_high": 2365960,
+ "price": 2369900,
+ "change": 9320,
+ "change_percent": 0.39,
+ "day_high": 2370090,
  "day_low": 2349910,
  "prev_price": 2360580,
  "source": "tgju",
- "updated_at": "2026-09-11T13:24:09.369Z",
+ "updated_at": "2026-09-11T13:42:37.273Z",
  "is_stale": false,
- "generated_at": "2026-09-11T13:24:09.369Z"
+ "generated_at": "2026-09-11T13:42:37.273Z"
 }
