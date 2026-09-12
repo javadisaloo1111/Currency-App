@@ -6,12 +6,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import ir.talayar.app.domain.model.AppUpdate
 import ir.talayar.app.domain.model.UpdateError
 import ir.talayar.app.domain.model.UpdateErrorKind
+import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.job
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
