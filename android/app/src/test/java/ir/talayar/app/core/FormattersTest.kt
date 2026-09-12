@@ -25,7 +25,7 @@ class FormattersTest {
     @Test
     fun `price formats the canonical toman value without any unit conversion`() {
         // Prices arrive in Toman and are displayed in Toman — never in Rial.
-        assertEquals("۱٬۰۴۸٬۵۰۰", Formatters.price(104_850.0))
+        assertEquals("۱۰۴٬۸۵۰", Formatters.price(104_850.0))
         assertEquals("۱۲٬۴۵۰٬۰۰۰", Formatters.price(12_450_000.0))
     }
 

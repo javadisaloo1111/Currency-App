@@ -76,11 +76,14 @@ class UpdateDialogTest {
     }
 
     @Test
-    fun `later button dismisses and forced updates hide it`() {
+    fun `later button dismisses available update`() {
         val actions = render(UpdateViewModel.State.Available(update))
         composeRule.onNodeWithText("بعداً").performClick()
         assertEquals(listOf("dismiss"), actions.calls)
+    }
 
+    @Test
+    fun `forced updates hide the later button`() {
         val forced = update.copy(forced = true)
         render(UpdateViewModel.State.Available(forced))
         composeRule.onNodeWithText("بعداً").assertDoesNotExist()
@@ -117,10 +120,13 @@ class UpdateDialogTest {
     }
 
     @Test
-    fun `hidden and ready states render nothing`() {
+    fun `hidden state renders nothing`() {
         render(UpdateViewModel.State.Hidden)
         composeRule.onNodeWithText("نسخه جدید آمده است").assertDoesNotExist()
+    }
 
+    @Test
+    fun `ready state renders nothing until install is triggered`() {
         render(UpdateViewModel.State.Ready(update))
         composeRule.onNodeWithText("نسخه جدید آمده است").assertDoesNotExist()
     }

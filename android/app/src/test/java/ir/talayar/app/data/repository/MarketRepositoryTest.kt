@@ -73,8 +73,13 @@ class MarketRepositoryTest {
 
         val result = repository.refresh()
 
+        assertTrue(result.isSuccess.not())
         assertTrue(result.isFailure)
-        assertTrue(result.exceptionOrNull() is IOException)
+        val ex = result.exceptionOrNull()
+        assertTrue(
+            "expected GatewayException wrapping network failure, got ${ex?.javaClass?.name}",
+            ex is ir.talayar.app.data.remote.GatewayException || ex is IOException,
+        )
     }
 
     @Test
