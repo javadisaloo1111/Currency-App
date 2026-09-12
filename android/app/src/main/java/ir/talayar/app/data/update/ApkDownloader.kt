@@ -3,6 +3,7 @@ package ir.talayar.app.data.update
 import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
+import ir.talayar.app.domain.model.AppUpdate
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive

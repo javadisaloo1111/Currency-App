@@ -261,8 +261,20 @@ class MarketRepositoryImpl @Inject constructor(
     }
 
     companion object {
+        private const val LOG_TAG = "MarketRepository"
+
         private const val API_PRICES = "/api/v1/market/prices.json"
         private const val API_HISTORY = "/api/v1/market/history/%s.json"
+
+        /**
+         * Built-in snapshot hosts (canonical Pages first, then public mirrors of
+         * the same gh-pages tree). Custom servers replace this list entirely.
+         */
+        private val STATIC_ENDPOINTS: List<String> = listOf(
+            BuildConfig.DEFAULT_API_BASE_URL.trimEnd('/'),
+            "https://raw.githubusercontent.com/javadisaloo1111/Currency-App/gh-pages",
+            "https://cdn.jsdelivr.net/gh/javadisaloo1111/Currency-App@gh-pages",
+        )
 
         /** Minimum gap between identical local history points. */
         private const val LOCAL_POINT_MIN_GAP_MS = 60_000L
