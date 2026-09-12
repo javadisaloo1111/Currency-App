@@ -1,0 +1,29 @@
+{
+  "tag_name": "v1.0.3",
+  "name": "Gold Market Android v1.0.3",
+  "body": "",
+  "draft": false,
+  "prerelease": false,
+  "published_at": "2026-09-12T11:53:50Z",
+  "assets": [
+    {
+      "name": "app-release-v1.0.3.apk",
+      "browser_download_url": "https://github.com/javadisaloo1111/Currency-App/releases/download/v1.0.3/app-release-v1.0.3.apk",
+      "size": 8695489,
+      "content_type": "application/vnd.android.package-archive",
+      "digest": "sha256:6fa54e448c236cc9c471a07b49f275db68161d2f1f7ef51b3a05ac01a066c92d"
+    },
+    {
+      "name": "app-release-v1.0.3.apk.sha256",
+      "browser_download_url": "https://github.com/javadisaloo1111/Currency-App/releases/download/v1.0.3/app-release-v1.0.3.apk.sha256",
+      "size": 89,
+      "content_type": "application/octet-stream"
+    }
+  ],
+  "mirror": {
+    "generated_by": "android-release workflow",
+    "sha256": "6fa54e448c236cc9c471a07b49f275db68161d2f1f7ef51b3a05ac01a066c92d",
+    "version_name": "1.0.3",
+    "version_code": 4
+  }
+}
