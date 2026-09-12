@@ -1,0 +1,17 @@
+{
+ "symbol": "GOLD_OUNCE_TM",
+ "name": "انس جهانی طلا",
+ "category": "gold",
+ "currency": "TOMAN",
+ "unit": "انس",
+ "price": 10210294920,
+ "change": 2300060,
+ "change_percent": 0.02,
+ "day_high": 10210294920,
+ "day_low": 10200343640,
+ "prev_price": 10207994860,
+ "source": "tgju+toman",
+ "updated_at": "2026-09-12T08:54:24.544Z",
+ "is_stale": false,
+ "generated_at": "2026-09-12T08:54:24.544Z"
+}
