@@ -53,8 +53,34 @@ all future updates must be signed with the same key.
 
 ## Versioning
 
-Bump `versionCode` / `versionName` in `android/app/build.gradle.kts`
-(also `APP_VERSION_NAME` buildConfigField) before tagging.
+`android/app/build.gradle.kts` declares the published version once, at the top of
+the file — the single source of truth:
+
+```kotlin
+val appVersionCode = 3
+val appVersionName = "1.0.2"
+```
+
+Bump **both** before tagging. `appVersionName` feeds `versionName` *and* the
+`APP_VERSION_NAME` buildConfigField, which is what the in-app updater reports as
+the installed version, so the manifest and the updater can no longer drift apart.
+
+## Release verification
+
+`Android CI` and `Android Release` both run `.github/scripts/verify-apk.sh`
+against the APK they just built:
+
+- ZIP/APK magic and a size above the 500 KB floor the in-app downloader enforces;
+- `applicationId` / `versionName` / `versionCode` read back **from the package**
+  (aapt2 → aapt → apkanalyzer → AGP merged manifest) and compared with the tag and
+  the gradle values — the release job fails if the tagged APK is not the tagged version;
+- the home-screen greeting must really be shipped inside the APK;
+- SHA-256 of the artifact.
+
+The release workflow then downloads the published asset back through its public
+release URL and fails on a SHA-256 mismatch. Versions, checksum and the direct
+download link are embedded in the release notes, so every release documents what
+was actually published.
 
 ## In-app updates (since v1.0.1)
 

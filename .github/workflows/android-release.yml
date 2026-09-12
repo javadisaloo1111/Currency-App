@@ -94,6 +94,20 @@ jobs:
           echo "APK_SIZE=$(stat -c%s "app-release-${TAG}.apk")" >> "$GITHUB_STEP_SUMMARY"
           echo "APK_SHA256=$(cut -d' ' -f1 "app-release-${TAG}.apk.sha256")" >> "$GITHUB_STEP_SUMMARY"
 
+      # Publish gate: the APK attached to this release must really be the tagged
+      # version (versionName/versionCode read back from the built package) and
+      # must ship the app's UI copy. The report ends up in the release notes.
+      - name: Verify the release APK (tag == versionName/versionCode + shipped copy)
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          bash .github/scripts/verify-apk.sh \
+            --apk "android/app/build/outputs/apk/release/app-release-${TAG}.apk" \
+            --gradle android/app/build.gradle.kts \
+            --tag "$TAG" \
+            --string "سلام جواد عیسی لو" \
+            --report "$RUNNER_TEMP/APK_VERIFICATION.md"
+
       - name: Write release notes
         env:
           TAG: ${{ steps.tag.outputs.tag }}
@@ -104,7 +118,7 @@ jobs:
 
           قیمت لحظه‌ای طلا، سکه و ارزهای مهم بازار ایران با رابط کاربری فارسی، حالت تیره، نمودار قیمت، علاقه‌مندی‌ها و هشدار قیمت.
 
-          **این نسخه (v$TAG) شامل:**
+          **این نسخه ($TAG) شامل:**
           - نمایش قیمت طلای ۱۸ و ۲۴ عیار، مثقال، انس جهانی، سکه‌های امامی/بهار آزادی/نیم/ربع/گرمی، دلار، یورو، پوند، درهم، تتر و…
           - به‌روزرسانی خودکار و دستی (Pull-to-Refresh) با نمایش «آخرین بروزرسانی»
           - نمودار تعاملی قیمت با بازه‌های 1H تا 1Y
@@ -113,11 +127,17 @@ jobs:
           - طراحی Material 3، کاملاً فارسی و راست‌به‌چپ با فونت وزیرمتن
 
           ## نصب
-          فایل `app-release-${TAG}.apk` را دانلود و نصب کنید (اجازه نصب از منابع ناشناس لازم است).
+          فایل \`app-release-${TAG}.apk\` را دانلود و نصب کنید (اجازه نصب از منابع ناشناس لازم است).
           از نسخه ۱.۰.۱ به بعد، خود برنامه هم به‌صورت خودکار نسخهٔ جدید را پیدا می‌کند، با تأیید شما دانلود می‌کند و نصب می‌کند (تنظیمات ← بررسی بروزرسانی).
           تمام قیمت‌ها — از جمله انس جهانی طلا — به تومان نمایش داده می‌شوند.
           منبع قیمت‌ها: Price Gateway چندمنبعی با Failover خودکار — برای به‌روزرسانی لحظه‌ای می‌توانید سرور اختصاصی متصل شوید (README بخش Deployment).
+
+          ## لینک مستقیم دانلود
+          https://github.com/javadisaloo1111/Currency-App/releases/download/${TAG}/app-release-${TAG}.apk
+
+          ## تأیید خودکار بستهٔ انتشار (CI)
           EOF
+          cat "$RUNNER_TEMP/APK_VERIFICATION.md" >> "$RUNNER_TEMP/RELEASE_NOTES.md"
 
       - name: Create GitHub Release and upload APK
         env:
@@ -130,3 +150,40 @@ jobs:
             --title "Gold Market Android $TAG" \
             --notes-file "$RUNNER_TEMP/RELEASE_NOTES.md" \
             --latest
+
+      # Final gate: pull the asset back through its public release URL and prove
+      # the published bytes are identical to the verified build (SHA-256). The
+      # confirmation is appended to the release notes.
+      - name: Verify the published asset (download it back from the release URL)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -uo pipefail
+          URL="https://github.com/javadisaloo1111/Currency-App/releases/download/${TAG}/app-release-${TAG}.apk"
+          LOCAL="android/app/build/outputs/apk/release/app-release-${TAG}.apk"
+          EXPECTED="$(sha256sum "$LOCAL" | cut -d' ' -f1)"
+          TMP="$(mktemp -d)"
+          downloaded=false
+          for attempt in 1 2 3; do
+            if curl -fsSL --retry 2 -o "$TMP/published.apk" "$URL"; then downloaded=true; break; fi
+            echo "download attempt $attempt failed, retrying in 10s..." >&2
+            sleep 10
+          done
+          if [ "$downloaded" != "true" ]; then
+            echo "::warning::could not fetch $URL from the runner (asset upload itself succeeded — see the release page)"
+          else
+            ACTUAL="$(sha256sum "$TMP/published.apk" | cut -d' ' -f1)"
+            PUB_SIZE="$(stat -c%s "$TMP/published.apk")"
+            if [ "$ACTUAL" != "$EXPECTED" ]; then
+              echo "::error::published asset SHA-256 mismatch (expected $EXPECTED, downloaded $ACTUAL)"
+              exit 1
+            fi
+            echo "published asset verified: $URL ($PUB_SIZE bytes, SHA-256 $ACTUAL)"
+            {
+              echo ""
+              echo "✅ فایل بالا از لینک مستقیم Release دوباره دانلود و بررسی شد: SHA-256 دانلود با بستهٔ Build برابر است (${PUB_SIZE} bytes)."
+            } >> "$RUNNER_TEMP/RELEASE_NOTES.md"
+            gh release edit "$TAG" --notes-file "$RUNNER_TEMP/RELEASE_NOTES.md"
+          fi
+          rm -rf "$TMP"

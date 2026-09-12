@@ -74,6 +74,16 @@ jobs:
             exit 1
           fi
 
+      # Integrity gate: the APK that CI just built must carry the version declared
+      # in app/build.gradle.kts and must really ship the app's UI copy.
+      - name: Verify the release APK (version + shipped copy)
+        if: env.GRADLE_EXIT == '0'
+        run: |
+          bash "${{ github.workspace }}/.github/scripts/verify-apk.sh" \
+            --apk app/build/outputs/apk/release/app-release.apk \
+            --gradle app/build.gradle.kts \
+            --string "سلام جواد عیسی لو"
+
       - name: Upload APK artifact
         if: env.GRADLE_EXIT == '0'
         uses: actions/upload-artifact@v4
