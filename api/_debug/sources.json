@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-12T08:54:24.544Z",
+ "generated_at": "2026-09-12T09:02:04.743Z",
  "tgju_host_used": "https://call5.tgju.org",
  "tgju_key_count": 963,
  "tgju_keys": [
@@ -1119,8 +1119,7 @@
   "CNY:tgju",
   "CHF:tgju",
   "USDT:tgju",
-  "BTC:tgju",
-  "GOLD_OUNCE_TM:tgju+toman"
+  "BTC:tgju"
  ],
  "carried_forward": [],
  "missing": [],
