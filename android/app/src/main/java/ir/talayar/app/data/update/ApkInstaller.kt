@@ -27,20 +27,22 @@ class ApkInstaller @Inject constructor(
      *   needs the "install unknown apps" permission (the settings page was
      *   opened in that case, or the intent failed).
      */
-    fun install(apkFile: File): Boolean = try {
-        if (!context.packageManager.canRequestPackageInstalls()) {
-            openUnknownSourcesSettings()
-            return false
+    fun install(apkFile: File): Boolean {
+        return try {
+            if (!context.packageManager.canRequestPackageInstalls()) {
+                openUnknownSourcesSettings()
+                return false
+            }
+            val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", apkFile)
+            val intent = Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, "application/vnd.android.package-archive")
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+            true
+        } catch (t: Throwable) {
+            Log.e(TAG, "failed to open the package installer", t)
+            false
         }
-        val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", apkFile)
-        val intent = Intent(Intent.ACTION_VIEW)
-            .setDataAndType(uri, "application/vnd.android.package-archive")
-            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-        true
-    } catch (t: Throwable) {
-        Log.e(TAG, "failed to open the package installer", t)
-        false
     }
 
     /** Opens the system page where the user allows installing from this app. */
