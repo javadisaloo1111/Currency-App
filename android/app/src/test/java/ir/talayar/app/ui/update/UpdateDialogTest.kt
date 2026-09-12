@@ -1,5 +1,8 @@
 package ir.talayar.app.ui.update
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -154,8 +157,20 @@ class UpdateDialogTest {
 
     @Test
     fun `every failure message is persian, distinct and free of jargon`() {
+        // ComposeTestRule allows setContent only once per test; drive kinds via mutable state.
+        var state by mutableStateOf<UpdateViewModel.State>(
+            UpdateViewModel.State.Error(
+                UpdateError(UpdateErrorKind.entries.first(), "java.net.SocketTimeoutException: timeout"),
+            ),
+        )
+        composeRule.setContent {
+            UpdateDialog(state = state, actions = RecordingActions())
+        }
         for (kind in UpdateErrorKind.entries) {
-            render(UpdateViewModel.State.Error(UpdateError(kind, "java.net.SocketTimeoutException: timeout")))
+            state = UpdateViewModel.State.Error(
+                UpdateError(kind, "java.net.SocketTimeoutException: timeout"),
+            )
+            composeRule.waitForIdle()
             composeRule.onNodeWithText(kind.userMessage).assertIsDisplayed()
             assertNoJargon()
             // A raw exception must never reach the screen.
