@@ -142,17 +142,27 @@ jobs:
           APKSIGNER="$(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -V | tail -1)"
           echo "apksigner: ${APKSIGNER:-<not found>}"
 
+          java -version 2>&1 | head -2
+          echo "available apksigner binaries:"
+          find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr
+
+          # minSdk 26 -> AGP signs with APK Signature Scheme v2 only (no JAR/v1
+          # signature), so keytool cannot see the certificate; apksigner must.
+          # Try every installed build-tools, newest first: the newest ones may
+          # need a Java version this job does not have.
           cert_sha256() {
-            local apk="$1" out=""
-            if [ -n "$APKSIGNER" ]; then
-              out="$("$APKSIGNER" verify --print-certs "$apk" 2>/dev/null \
-                    | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -1)"
-            fi
-            if [ -z "$out" ]; then
-              out="$(keytool -printcert -jarfile "$apk" 2>/dev/null \
-                    | sed -n 's/^SHA256: //p' | head -1 | tr -d ':')"
-            fi
-            printf '%s' "$out"
+            local apk="$1" out="" tool
+            for tool in $(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr); do
+              echo "trying $tool" >&2
+              out="$("$tool" verify --print-certs "$apk" 2>&1 \
+                    | sed -n 's/^[[:space:]]*Signer #1 certificate SHA-256 digest:[[:space:]]*//p' | head -1)"
+              if [ -n "$out" ]; then printf '%s' "$out"; return 0; fi
+              "$tool" verify --print-certs "$apk" 2>&1 | head -4 >&2
+            done
+            out="$(keytool -printcert -jarfile "$apk" 2>/dev/null \
+                  | sed -n 's/^SHA256: //p' | head -1 | tr -d ':')"
+            if [ -n "$out" ]; then printf '%s' "$out"; return 0; fi
+            return 1
           }
 
           NEW_APK="$(find apkcmp/new -name '*.apk' | head -1)"
@@ -170,7 +180,9 @@ jobs:
           if [ -n "$APKSIGNER" ]; then "$APKSIGNER" verify --print-certs -v "$NEW_APK" 2>/dev/null | head -12 || true; fi
 
           if [ -z "$NEW_CERT" ] || [ -z "$OLD_CERT" ]; then
-            echo "::warning::could not read one of the signing certificates ($NEW_TAG='${NEW_CERT:-?}' / $OLD_TAG='${OLD_CERT:-?}')"
+            RAW="$(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr | head -1)"
+            DETAIL="$([ -n "$RAW" ] && "$RAW" verify --print-certs "$NEW_APK" 2>&1 | head -3 | tr '\n' ' ')"
+            echo "::warning::could not read a signing certificate ($NEW_TAG='${NEW_CERT:-?}' / $OLD_TAG='${OLD_CERT:-?}'); apksigner said: ${DETAIL:-n/a}"
             exit 0
           fi
           if [ "$NEW_CERT" = "$OLD_CERT" ]; then
