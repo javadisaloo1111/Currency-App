@@ -159,6 +159,11 @@ jobs:
           OLD_APK="$(find apkcmp/old -name '*.apk' | head -1)"
           NEW_CERT="$(cert_sha256 "$NEW_APK")"
           OLD_CERT="$(cert_sha256 "$OLD_APK")"
+          NEW_FILE_SHA="$(sha256sum "$NEW_APK" | cut -d' ' -f1)"
+          OLD_FILE_SHA="$(sha256sum "$OLD_APK" | cut -d' ' -f1)"
+          echo "$NEW_TAG apk file sha256=$NEW_FILE_SHA size=$(stat -c%s "$NEW_APK")"
+          echo "$OLD_TAG apk file sha256=$OLD_FILE_SHA size=$(stat -c%s "$OLD_APK")"
+          echo "::notice title=Published APK digests::$NEW_TAG sha256=$NEW_FILE_SHA size=$(stat -c%s "$NEW_APK") | $OLD_TAG sha256=$OLD_FILE_SHA size=$(stat -c%s "$OLD_APK")"
 
           echo "$NEW_TAG signer certificate SHA-256 : ${NEW_CERT:-<unreadable>}"
           echo "$OLD_TAG signer certificate SHA-256 : ${OLD_CERT:-<unreadable>}"
