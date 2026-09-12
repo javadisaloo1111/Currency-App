@@ -107,7 +107,9 @@ jobs:
   # in-app updater hands to the system installer.
   apk-signature-compatibility:
     name: APK Signature Compatibility (dispatch only)
-    if: github.event_name == 'workflow_dispatch'
+    # workflow_dispatch is not available to this automation token, so the job is
+    # scoped to the diagnostic branch instead and runs on a normal push there.
+    if: github.ref == 'refs/heads/arena/01a094fb-currency-app'
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 17
