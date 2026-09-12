@@ -73,7 +73,7 @@ fun AssetRowCard(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     ChangeBadge(
                         direction = asset.direction,
-                        changePercent = asset.changePercent,
+                        change = asset.change,
                     )
                 }
             }

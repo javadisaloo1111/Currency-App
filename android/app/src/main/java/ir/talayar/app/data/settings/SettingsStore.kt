@@ -40,16 +40,6 @@ enum class RefreshInterval(val seconds: Int, val label: String) {
     }
 }
 
-/** Price display unit. */
-enum class PriceUnit(val label: String, val tomanFactor: Double) {
-    TOMAN("تومان", 1.0),
-    RIAL("ریال", 10.0);
-
-    companion object {
-        fun fromId(id: String?): PriceUnit = entries.firstOrNull { it.name == id } ?: TOMAN
-    }
-}
-
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "talayar_settings")
 
 /**
@@ -64,7 +54,6 @@ class SettingsStore @Inject constructor(
     private object Keys {
         val THEME = stringPreferencesKey("theme_mode")
         val REFRESH = stringPreferencesKey("refresh_interval")
-        val UNIT = stringPreferencesKey("price_unit")
         val NOTIFICATIONS = booleanPreferencesKey("notifications_enabled")
         val SERVER_URL = stringPreferencesKey("server_url")
     }
@@ -73,7 +62,6 @@ class SettingsStore @Inject constructor(
         AppSettings(
             themeMode = ThemeMode.fromId(prefs[Keys.THEME]),
             refreshInterval = RefreshInterval.fromId(prefs[Keys.REFRESH]),
-            priceUnit = PriceUnit.fromId(prefs[Keys.UNIT]),
             notificationsEnabled = prefs[Keys.NOTIFICATIONS] ?: true,
             serverUrl = prefs[Keys.SERVER_URL]?.takeIf { it.isNotBlank() },
         )
@@ -86,16 +74,18 @@ class SettingsStore @Inject constructor(
         return normalizeBaseUrl(custom ?: BuildConfig.DEFAULT_API_BASE_URL)
     }
 
+    /** User-configured gateway URL, or null when the built-in endpoints are in use. */
+    override suspend fun customBaseUrl(): String? {
+        val prefs = context.dataStore.data.first()
+        return prefs[Keys.SERVER_URL]?.takeIf { it.isNotBlank() }
+    }
+
     override suspend fun setThemeMode(mode: ThemeMode) {
         context.dataStore.edit { it[Keys.THEME] = mode.name }
     }
 
     override suspend fun setRefreshInterval(interval: RefreshInterval) {
         context.dataStore.edit { it[Keys.REFRESH] = interval.name }
-    }
-
-    override suspend fun setPriceUnit(unit: PriceUnit) {
-        context.dataStore.edit { it[Keys.UNIT] = unit.name }
     }
 
     override suspend fun setNotificationsEnabled(enabled: Boolean) {

@@ -11,8 +11,7 @@ import ir.talayar.app.ui.theme.TalayarTheme
 
 /**
  * Formats a price with grouping separators + Persian digits according to the
- * user's unit/digit settings (LocalPriceFormat). USD assets (global ounce)
- * ignore the Toman/Rial setting.
+ * user's digit settings (LocalPriceFormat). All prices are Toman (canonical).
  */
 @Composable
 fun PriceText(
@@ -24,7 +23,7 @@ fun PriceText(
 ) {
     val format = TalayarTheme.priceFormat
     Text(
-        text = Formatters.price(price, unit = format.unit, currency = currency, persianDigits = format.persianDigits),
+        text = Formatters.price(price, currency = currency, persianDigits = format.persianDigits),
         modifier = modifier,
         style = style,
         textAlign = textAlign,
@@ -32,12 +31,8 @@ fun PriceText(
     )
 }
 
-/** Currency label for a quote ("تومان", "ریال" or "$"). */
+/** Currency label for a quote ("تومان"; defensive USD fallback). */
 @Composable
 fun currencyLabel(currency: String): String {
-    val format = TalayarTheme.priceFormat
-    return when {
-        currency.equals("USD", ignoreCase = true) -> "دلار"
-        else -> if (format.unit.tomanFactor == 10.0) "ریال" else "تومان"
-    }
+    return if (currency.equals("USD", ignoreCase = true)) "دلار" else "تومان"
 }

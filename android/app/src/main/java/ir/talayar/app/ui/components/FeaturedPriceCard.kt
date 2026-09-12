@@ -78,7 +78,6 @@ fun FeaturedPriceCard(
                     Text(
                         text = Formatters.price(
                             asset.price,
-                            unit = format.unit,
                             currency = asset.currency,
                             persianDigits = format.persianDigits,
                         ),
@@ -96,13 +95,7 @@ fun FeaturedPriceCard(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(top = 10.dp),
                 ) {
-                    ChangeBadge(direction = asset.direction, changePercent = asset.changePercent, emphasized = true)
-                    Text(
-                        text = Formatters.changeAmount(asset.change, format.unit),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = Color.White,
-                        modifier = Modifier.padding(start = 10.dp),
-                    )
+                    ChangeBadge(direction = asset.direction, change = asset.change, emphasized = true)
                     Text(
                         text = "بروزرسانی ${Formatters.relative(asset.updatedAt)}",
                         style = MaterialTheme.typography.labelMedium,

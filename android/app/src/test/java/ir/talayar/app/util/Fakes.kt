@@ -14,7 +14,6 @@ import ir.talayar.app.data.remote.HistoryDto
 import ir.talayar.app.data.remote.HistoryPointDto
 import ir.talayar.app.data.remote.MarketApi
 import ir.talayar.app.data.remote.PricesEnvelopeDto
-import ir.talayar.app.data.settings.PriceUnit
 import ir.talayar.app.data.settings.RefreshInterval
 import ir.talayar.app.data.settings.ThemeMode
 import ir.talayar.app.domain.model.AlertKind
@@ -87,12 +86,22 @@ class FakeMarketApi : MarketApi {
     var historyResponse: HistoryDto = HistoryDto()
     var historyError: Throwable? = null
 
+    /** URLs that must fail with their mapped exception (failover testing). */
+    val failuresByUrl = mutableMapOf<String, Throwable>()
+
+    /** Every requested URL, in order (failover assertions). */
+    val requestedUrls = mutableListOf<String>()
+
     override suspend fun prices(url: String, cacheBuster: Long): PricesEnvelopeDto {
+        requestedUrls += url
+        failuresByUrl[url]?.let { throw it }
         pricesError?.let { throw it }
         return pricesResponse
     }
 
     override suspend fun history(url: String, cacheBuster: Long): HistoryDto {
+        requestedUrls += url
+        failuresByUrl[url]?.let { throw it }
         historyError?.let { throw it }
         return historyResponse
     }
@@ -199,10 +208,6 @@ class FakeSettingsRepository : SettingsRepository {
         settingsFlow.value = settingsFlow.value.copy(refreshInterval = interval)
     }
 
-    override suspend fun setPriceUnit(unit: PriceUnit) {
-        settingsFlow.value = settingsFlow.value.copy(priceUnit = unit)
-    }
-
     override suspend fun setNotificationsEnabled(enabled: Boolean) {
         settingsFlow.value = settingsFlow.value.copy(notificationsEnabled = enabled)
     }
@@ -212,7 +217,11 @@ class FakeSettingsRepository : SettingsRepository {
         settingsFlow.value = settingsFlow.value.copy(serverUrl = url?.takeIf { it.isNotBlank() })
     }
 
-    override suspend fun baseUrl(): String = "https://gateway.example/"
+    var customUrl: String? = null
+
+    override suspend fun baseUrl(): String = customUrl ?: "https://gateway.example/"
+
+    override suspend fun customBaseUrl(): String? = customUrl
 }
 
 class FakeConnectivity(initial: Boolean = true) : Connectivity {

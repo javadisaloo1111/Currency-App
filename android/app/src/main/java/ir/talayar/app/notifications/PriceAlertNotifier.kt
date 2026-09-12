@@ -15,7 +15,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import ir.talayar.app.MainActivity
 import ir.talayar.app.R
 import ir.talayar.app.core.Formatters
-import ir.talayar.app.data.settings.PriceUnit
 import ir.talayar.app.domain.model.TriggeredAlert
 import javax.inject.Inject
 import javax.inject.Singleton

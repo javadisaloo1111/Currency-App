@@ -9,7 +9,10 @@
    git push origin v1.0.1
    ```
 3. The `Android Release` workflow runs the full test suite, builds the signed APK,
-   and creates a GitHub Release named `Gold Market Android <tag>` with `app-release.apk` attached.
+   and creates a GitHub Release named `Gold Market Android <tag>` with two assets:
+   `app-release-<tag>.apk` and `app-release-<tag>.apk.sha256` (SHA-256 checksum).
+   The direct download URL is always:
+   `https://github.com/javadisaloo1111/Currency-App/releases/download/<tag>/app-release-<tag>.apk`.
 
 ## Signing
 
@@ -52,3 +55,27 @@ all future updates must be signed with the same key.
 
 Bump `versionCode` / `versionName` in `android/app/build.gradle.kts`
 (also `APP_VERSION_NAME` buildConfigField) before tagging.
+
+## In-app updates (since v1.0.1)
+
+The app checks `https://api.github.com/repos/javadisaloo1111/Currency-App/releases/latest`
+on start (at most once every 12 hours; a manual «بررسی بروزرسانی» lives in Settings),
+compares versions numerically (1.0.10 > 1.0.9, never downgrades), downloads the official
+`app-release-<tag>.apk` asset, verifies size + ZIP magic + the published SHA-256 checksum
+and opens the Android package installer (user confirmation is always required; the app
+never installs silently).
+
+**Force update (optional, off by default):** add a line like the one below anywhere in
+the release notes (body) to make the update dialog non-dismissable for users on older
+versions:
+
+```
+minimum_supported_version: 1.0.2
+```
+
+Rules the updater enforces:
+- Only `https://github.com/javadisaloo1111/Currency-App/releases/download/...` URLs are accepted.
+- A release without an APK asset, or with the service unreachable, is ignored silently —
+  the app keeps working normally.
+- Users see plain Persian copy («نسخه جدید آمده است» / «به‌روزرسانی» / «بعداً»); no
+  technical jargon.

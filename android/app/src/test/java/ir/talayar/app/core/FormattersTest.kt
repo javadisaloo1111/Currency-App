@@ -1,6 +1,5 @@
 package ir.talayar.app.core
 
-import ir.talayar.app.data.settings.PriceUnit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -24,9 +23,10 @@ class FormattersTest {
     }
 
     @Test
-    fun `price converts toman to rial when requested`() {
-        val formatted = Formatters.price(104_850.0, unit = PriceUnit.RIAL)
-        assertEquals("۱٬۰۴۸٬۵۰۰", formatted)
+    fun `price formats the canonical toman value without any unit conversion`() {
+        // Prices arrive in Toman and are displayed in Toman — never in Rial.
+        assertEquals("۱۰۴٬۸۵۰", Formatters.price(104_850.0))
+        assertEquals("۱۲٬۴۵۰٬۰۰۰", Formatters.price(12_450_000.0))
     }
 
     @Test

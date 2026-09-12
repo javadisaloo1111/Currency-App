@@ -1,5 +1,5 @@
 import type { AssetQuote } from "../types.js";
-import { ASSETS } from "../../../shared/assets.mjs";
+import { ASSETS, HIDDEN_SYMBOLS } from "../../../shared/assets.mjs";
 
 const ORDER = new Map<string, number>(ASSETS.map((a, i) => [a.symbol as string, i]));
 
@@ -41,13 +41,14 @@ export class PriceCache {
   /** All quotes in registry order with `is_stale` derived from their age. */
   all(now: Date, staleAfterMs: number): AssetQuote[] {
     return [...this.quotes.values()]
+      .filter((q) => !HIDDEN_SYMBOLS.has(q.symbol))
       .map((q) => ({ ...q, is_stale: this.stale(q, now, staleAfterMs) }))
       .sort((a, b) => (ORDER.get(a.symbol) ?? 999) - (ORDER.get(b.symbol) ?? 999));
   }
 
   get(symbol: string, now: Date, staleAfterMs: number): AssetQuote | null {
     const q = this.quotes.get(symbol);
-    if (!q) return null;
+    if (!q || HIDDEN_SYMBOLS.has(q.symbol)) return null;
     return { ...q, is_stale: this.stale(q, now, staleAfterMs) };
   }
 

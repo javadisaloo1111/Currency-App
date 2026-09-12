@@ -17,11 +17,12 @@ import ir.talayar.app.domain.model.PriceFormat
 import ir.talayar.app.ui.navigation.TalayarApp
 import ir.talayar.app.ui.settings.SettingsViewModel
 import ir.talayar.app.ui.theme.TalayarTheme
+import ir.talayar.app.ui.update.UpdateHost
 
 /**
  * App root: resolves the theme (light/dark/system) + price format from
- * settings, forces the RTL layout direction (the app is Persian-only) and
- * mounts the navigation scaffold.
+ * settings, forces the RTL layout direction (the app is Persian-only),
+ * mounts the navigation scaffold and hosts the global update dialog.
  */
 @Composable
 fun TalayarRoot(settingsViewModel: SettingsViewModel = hiltViewModel()) {
@@ -35,7 +36,7 @@ fun TalayarRoot(settingsViewModel: SettingsViewModel = hiltViewModel()) {
 
     TalayarTheme(
         darkTheme = darkTheme,
-        priceFormat = PriceFormat(persianDigits = true, unit = settings.priceUnit),
+        priceFormat = PriceFormat(persianDigits = true),
     ) {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Surface(
@@ -43,6 +44,7 @@ fun TalayarRoot(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                 color = MaterialTheme.colorScheme.background,
             ) {
                 TalayarApp()
+                UpdateHost()
             }
         }
     }

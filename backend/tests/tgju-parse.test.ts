@@ -11,7 +11,8 @@ const bySymbol = new Map(quotes.map((q) => [q.symbol, q]));
 
 describe("TGJU payload mapping", () => {
   it("maps every healthy registry entry (broken/absent keys are skipped)", () => {
-    // 16 TGJU-mapped assets in the registry; CHF has a broken value and is skipped.
+    // 16 TGJU-mapped assets; CHF has a broken value and is skipped. The hidden
+    // USD ounce is replaced by the derived Toman ounce, so 16 − 1 + 1 = 15.
     expect(quotes.length).toBe(15);
     expect(bySymbol.has("CHF")).toBe(false);
   });
@@ -29,10 +30,17 @@ describe("TGJU payload mapping", () => {
     expect(gold.is_stale).toBe(false);
   });
 
-  it("keeps USD decimals for the global ounce", () => {
-    const ounce = bySymbol.get("GOLD_OUNCE")!;
-    expect(ounce.currency).toBe("USD");
-    expect(ounce.price).toBeCloseTo(2651.38, 2);
+  it("derives the Toman global ounce from the USD ounce and the USD rate", () => {
+    const ounce = bySymbol.get("GOLD_OUNCE_TM")!;
+    expect(ounce.currency).toBe("TOMAN");
+    // 2651.38 USD × 104,850 Toman/USD
+    expect(ounce.price).toBe(Math.round(2651.38 * 104_850));
+    expect(ounce.change).toBe(Math.round(18.83 * 104_850));
+    expect(ounce.change_percent).toBe(0.71);
+    expect(ounce.prev_price).toBe(Math.round((2651.38 - 18.83) * 104_850));
+    expect(ounce.source).toBe("tgju+toman");
+    // The hidden USD source must never be published.
+    expect(bySymbol.has("GOLD_OUNCE")).toBe(false);
   });
 
   it("flips the change sign when the direction is down (dt=low)", () => {

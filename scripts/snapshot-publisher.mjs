@@ -27,11 +27,12 @@ import { fileURLToPath } from "node:url";
 import {
   ASSETS,
   CATEGORIES,
+  HIDDEN_SYMBOLS,
   RANGES,
   maintainPoints,
   rangePoints,
 } from "../shared/assets.mjs";
-import { quoteFromTgju, quoteFromNobitex, validateQuote } from "../shared/quotes.mjs";
+import { quoteFromTgju, quoteFromNobitex, deriveQuote, validateQuote } from "../shared/quotes.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -153,6 +154,7 @@ async function main() {
   const missing = [];
 
   for (const asset of ASSETS) {
+    if (asset.derive) continue; // derived quotes are computed after the sources below
     let quote = null;
 
     if (asset.nobitex && nobitex.ok) {
@@ -192,10 +194,40 @@ async function main() {
     }
   }
 
+  // derive canonical Toman quotes (GOLD_OUNCE_TM = USD ounce × USD/Toman rate)
+  const combinedQuotes = new Map([...freshQuotes, ...carryForward].map((q) => [q.symbol, q]));
+  for (const asset of ASSETS) {
+    if (!asset.derive) continue;
+    const src = combinedQuotes.get(asset.derive.from) || null;
+    const rate = combinedQuotes.get(asset.derive.byQuote) || null;
+    const core = deriveQuote(asset, src, rate);
+    const prev = prevAssets.get(asset.symbol) || null;
+    const sourcesFresh = src != null && rate != null && !src.is_stale && !rate.is_stale;
+    if (core && sourcesFresh && validateQuote(core, prev ? prev.price : null)) {
+      core.updated_at = generatedAt.toISOString();
+      core.is_stale = false;
+      freshQuotes.push(core);
+    } else if (core && prev) {
+      // sources unavailable/stale -> keep the last published value, marked stale
+      carryForward.push({ ...prev, is_stale: true });
+    } else if (core) {
+      // first run without a previous snapshot: publish the derived value marked stale
+      core.updated_at = generatedAt.toISOString();
+      core.is_stale = true;
+      carryForward.push(core);
+    } else if (prev) {
+      carryForward.push({ ...prev, is_stale: true });
+    } else {
+      missing.push(asset.symbol);
+    }
+  }
+
   const data = [
     ...freshQuotes,
     ...carryForward,
-  ].sort((a, b) => ASSETS.findIndex((x) => x.symbol === a.symbol) - ASSETS.findIndex((x) => x.symbol === b.symbol));
+  ]
+    .filter((q) => !HIDDEN_SYMBOLS.has(q.symbol))
+    .sort((a, b) => ASSETS.findIndex((x) => x.symbol === a.symbol) - ASSETS.findIndex((x) => x.symbol === b.symbol));
   const anyFresh = freshQuotes.length > 0;
   const newestUpdatedAt = data.reduce((acc, q) => (q.updated_at > acc ? q.updated_at : acc), "1970-01-01T00:00:00Z");
   const isStale = !anyFresh || generatedAt.getTime() - Date.parse(newestUpdatedAt) > STALE_AFTER_MS;

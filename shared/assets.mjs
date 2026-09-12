@@ -62,8 +62,13 @@ export const ASSETS = [
   { symbol: "GOLD_18K",     name: "طلای ۱۸ عیار",     category: "gold",     currency: "TOMAN", unit: "گرم",    tgjuKeys: ["geram18"] },
   { symbol: "GOLD_24K",     name: "طلای ۲۴ عیار",     category: "gold",     currency: "TOMAN", unit: "گرم",    tgjuKeys: ["geram24"] },
   { symbol: "GOLD_MESGHAL", name: "مثقال طلا",        category: "gold",     currency: "TOMAN", unit: "مثقال",  tgjuKeys: ["mesghal"] },
-  // Global ounce: live TGJU uses "ons" (انس); "once"/"ounce" kept for compatibility.
-  { symbol: "GOLD_OUNCE",   name: "انس جهانی طلا",    category: "gold",     currency: "USD",   unit: "انس",    tgjuKeys: ["ons", "once", "ounce"], decimals: 2 },
+  // Global ounce in USD — INTERNAL source only (hidden): it feeds GOLD_OUNCE_TM
+  // below so every published price is Toman. Live TGJU uses "ons" (انس);
+  // "once"/"ounce" kept for compatibility.
+  { symbol: "GOLD_OUNCE",   name: "انس جهانی طلا",    category: "gold",     currency: "USD",   unit: "انس",    tgjuKeys: ["ons", "once", "ounce"], decimals: 2, hidden: true },
+  // انس جهانی به تومان: USD ounce converted with the live USD/Toman rate.
+  // Derived in the canonical layer so clients always receive Toman.
+  { symbol: "GOLD_OUNCE_TM", name: "انس جهانی طلا",   category: "gold",     currency: "TOMAN", unit: "انس",    derive: { from: "GOLD_OUNCE", byQuote: "USD" } },
   { symbol: "COIN_EMAMI",   name: "سکه امامی",        category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["sekee"] },
   { symbol: "COIN_BAHAR",   name: "سکه بهار آزادی",   category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["sekeb"] },
   { symbol: "COIN_NIM",     name: "نیم سکه",          category: "coin",     currency: "TOMAN", unit: "عدد",    tgjuKeys: ["nim"] },
@@ -83,6 +88,9 @@ export const ASSETS = [
 ];
 
 export const ASSET_BY_SYMBOL = Object.fromEntries(ASSETS.map((a) => [a.symbol, a]));
+
+/** Symbols that are internal sources only — never published to clients. */
+export const HIDDEN_SYMBOLS = new Set(ASSETS.filter((a) => a.hidden).map((a) => a.symbol));
 
 export function findAssetByTgjuKey(key) {
   return ASSETS.find((a) => (a.tgjuKeys || []).includes(key)) || null;

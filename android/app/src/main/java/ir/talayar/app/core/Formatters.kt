@@ -1,6 +1,5 @@
 package ir.talayar.app.core
 
-import ir.talayar.app.data.settings.PriceUnit
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.time.Instant
@@ -28,17 +27,16 @@ object Formatters {
     }
 
     /**
-     * Format a price for display.
-     *  - USD prices keep up to 2 decimals.
-     *  - Toman prices are grouped integers (converted to Rial when requested).
+     * Format a price for display (canonical unit: Toman).
+     *  - USD-denominated values keep up to 2 decimals (defensive; the gateway
+     *    publishes every asset in Toman).
      */
     fun price(
         value: Double,
-        unit: PriceUnit = PriceUnit.TOMAN,
         currency: String = "TOMAN",
         persianDigits: Boolean = true,
     ): String {
-        val converted = if (currency.equals("TOMAN", ignoreCase = true)) value * unit.tomanFactor else value
+        val converted = value
         val formatted = when {
             currency.equals("USD", ignoreCase = true) -> decimalFormat.format(converted)
             converted >= 1000.0 -> intFormat.format(converted)
@@ -61,10 +59,10 @@ object Formatters {
         return if (persianDigits) localizeDigits(text) else text
     }
 
-    /** Change amount, grouped with sign (display-unit aware). */
-    fun changeAmount(value: Double?, unit: PriceUnit = PriceUnit.TOMAN, persianDigits: Boolean = true): String {
+    /** Change amount, grouped with sign (Toman). */
+    fun changeAmount(value: Double?, persianDigits: Boolean = true): String {
         if (value == null || !value.isFinite()) return "—"
-        val converted = value * unit.tomanFactor
+        val converted = value
         val sign = if (converted > 0.0) "+" else if (converted < 0.0) "−" else ""
         val formatted = intFormat.format(kotlin.math.abs(converted))
         val text = "$sign$formatted"

@@ -18,9 +18,9 @@ enum class ChangeDirection { UP, DOWN, FLAT }
 /**
  * A tradable market asset with its latest quote.
  *
- * Prices are stored in the unit reported by the gateway ("TOMAN" for domestic
- * assets, "USD" for the global ounce); conversion to the user's display unit
- * (Toman/Rial) happens only at the presentation layer.
+ * Prices are stored in the unit reported by the gateway — Toman for every
+ * published asset (the global ounce is converted to Toman in the canonical
+ * layer); display always uses Toman.
  */
 data class MarketAsset(
     val symbol: String,

@@ -80,6 +80,36 @@ export function quoteFromNobitex(asset, stat) {
   };
 }
 
+/**
+ * Derive a quote for an asset computed from other quotes — currently
+ * GOLD_OUNCE_TM = GOLD_OUNCE (USD) × USD (Toman rate). All numeric fields are
+ * converted so the published quote is canonical Toman. Returns null when
+ * either source quote is missing.
+ */
+export function deriveQuote(asset, srcQuote, rateQuote) {
+  if (!asset || !asset.derive || !srcQuote || !rateQuote) return null;
+  const rate = rateQuote.price;
+  if (rate == null || rate <= 0 || srcQuote.price == null) return null;
+  const toToman = (v) => (v == null ? null : Math.round(v * rate));
+  const prev = srcQuote.prev_price != null
+    ? srcQuote.prev_price
+    : (srcQuote.change != null ? srcQuote.price - srcQuote.change : null);
+  return {
+    symbol: asset.symbol,
+    name: asset.name,
+    category: asset.category,
+    currency: asset.currency,
+    unit: asset.unit || null,
+    price: toToman(srcQuote.price),
+    change: toToman(srcQuote.change),
+    change_percent: srcQuote.change_percent == null ? null : Number(srcQuote.change_percent.toFixed(2)),
+    day_high: toToman(srcQuote.day_high),
+    day_low: toToman(srcQuote.day_low),
+    prev_price: toToman(prev),
+    source: `${srcQuote.source}+toman`,
+  };
+}
+
 /** Reject absurd quotes (provider glitch / parsing bug). */
 export function validateQuote(quote, prevPrice, maxAbsChangePercent = 25) {
   if (!quote || !Number.isFinite(quote.price) || quote.price <= 0) return false;

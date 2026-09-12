@@ -19,6 +19,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
+import java.net.UnknownHostException
+import okhttp3.MediaType.Companion.toMediaType
 
 class MarketRepositoryTest {
 
@@ -71,8 +73,13 @@ class MarketRepositoryTest {
 
         val result = repository.refresh()
 
+        assertTrue(result.isSuccess.not())
         assertTrue(result.isFailure)
-        assertTrue(result.exceptionOrNull() is IOException)
+        val ex = result.exceptionOrNull()
+        assertTrue(
+            "expected GatewayException wrapping network failure, got ${ex?.javaClass?.name}",
+            ex is ir.talayar.app.data.remote.GatewayException || ex is IOException,
+        )
     }
 
     @Test
@@ -216,4 +223,85 @@ class MarketRepositoryTest {
             source = "test",
             isStale = false,
         )
+
+    // ------------------------------------------------------------------
+    // Gateway endpoint failover
+    // ------------------------------------------------------------------
+
+    private val canonicalPricesUrl = "https://javadisaloo1111.github.io/Currency-App/api/v1/market/prices.json"
+    private val rawMirrorPricesUrl = "https://raw.githubusercontent.com/javadisaloo1111/Currency-App/gh-pages/api/v1/market/prices.json"
+    private val cdnMirrorPricesUrl = "https://cdn.jsdelivr.net/gh/javadisaloo1111/Currency-App@gh-pages/api/v1/market/prices.json"
+
+    @Test
+    fun `refresh falls back to the static mirrors when the primary endpoint fails`() = runTest {
+        api.pricesResponse = ir.talayar.app.data.remote.PricesEnvelopeDto(
+            data = listOf(assetDto(symbol = "USD", category = "currency", price = 104_850.0)),
+        )
+        api.failuresByUrl[canonicalPricesUrl] = IOException("404: site not found")
+
+        val result = repository.refresh()
+
+        assertTrue(result.isSuccess)
+        assertEquals(listOf(canonicalPricesUrl, rawMirrorPricesUrl), api.requestedUrls)
+
+        // The working mirror becomes sticky for the next refresh.
+        api.requestedUrls.clear()
+        assertTrue(repository.refresh().isSuccess)
+        assertEquals(listOf(rawMirrorPricesUrl), api.requestedUrls)
+    }
+
+    @Test
+    fun `all mirrors failing surfaces a classified user message`() = runTest {
+        api.failuresByUrl[canonicalPricesUrl] = UnknownHostException("no dns")
+        api.failuresByUrl[rawMirrorPricesUrl] = UnknownHostException("no dns")
+        api.failuresByUrl[cdnMirrorPricesUrl] = UnknownHostException("no dns")
+
+        val result = repository.refresh()
+
+        assertTrue(result.isFailure)
+        assertEquals(3, api.requestedUrls.size)
+        val ex = result.exceptionOrNull() as? ir.talayar.app.data.remote.GatewayException
+        assertEquals("اتصال به اینترنت برقرار نیست", ex?.userMessage)
+    }
+
+    @Test
+    fun `http failure maps to server unavailable message`() {
+        val error = retrofit2.HttpException(
+            retrofit2.Response.error<Unit>(
+                404,
+                okhttp3.ResponseBody.create("text/plain".toMediaType(), "not found"),
+            ),
+        )
+        val classified = ir.talayar.app.data.remote.classifyGatewayFailure(error)
+        assertEquals("سرور در دسترس نیست", classified.userMessage)
+    }
+
+    @Test
+    fun `custom server url is used exclusively without mirror fallback`() = runTest {
+        settings.customUrl = "https://my-gateway.example"
+        api.failuresByUrl["https://my-gateway.example/api/v1/market/prices.json"] = IOException("down")
+
+        val result = repository.refresh()
+
+        assertTrue(result.isFailure)
+        assertEquals(listOf("https://my-gateway.example/api/v1/market/prices.json"), api.requestedUrls)
+    }
+
+    @Test
+    fun `history also fails over to mirrors`() = runTest {
+        api.historyResponse = historyDto(historyPoints(1_000L to 100.0))
+        api.failuresByUrl["https://javadisaloo1111.github.io/Currency-App/api/v1/market/history/USD.json"] =
+            IOException("404")
+
+        val result = repository.getHistory("USD")
+
+        assertTrue(result.isSuccess)
+        assertEquals(
+            listOf(
+                "https://javadisaloo1111.github.io/Currency-App/api/v1/market/history/USD.json",
+                "https://raw.githubusercontent.com/javadisaloo1111/Currency-App/gh-pages/api/v1/market/history/USD.json",
+            ),
+            api.requestedUrls,
+        )
+    }
 }
