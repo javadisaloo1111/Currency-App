@@ -7,6 +7,13 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+// Single source of truth for the published version — bump BOTH before tagging a
+// release (docs/RELEASE.md). `appVersionName` also feeds BuildConfig.APP_VERSION_NAME,
+// which is what the in-app updater reports as the "installed" version, so the two
+// can never drift apart.
+val appVersionCode = 3
+val appVersionName = "1.0.2"
+
 android {
     namespace = "ir.talayar.app"
     compileSdk = 35
@@ -15,8 +22,8 @@ android {
         applicationId = "ir.talayar.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
@@ -27,7 +34,7 @@ android {
             "DEFAULT_API_BASE_URL",
             "\"${project.findProperty("apiBaseUrl") ?: System.getenv("TALAYAR_API_BASE_URL") ?: "https://javadisaloo1111.github.io/Currency-App/"}\""
         )
-        buildConfigField("String", "APP_VERSION_NAME", "\"1.0.1\"")
+        buildConfigField("String", "APP_VERSION_NAME", "\"$appVersionName\"")
     }
 
     val ksPath: String? = System.getenv("TALAYAR_KEYSTORE_PATH")

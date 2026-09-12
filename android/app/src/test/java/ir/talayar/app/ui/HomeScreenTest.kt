@@ -79,7 +79,7 @@ class HomeScreenTest {
             }
         }
 
-        composeRule.onNodeWithText("سلام 👋").assertIsDisplayed()
+        composeRule.onNodeWithText("سلام جواد عیسی لو").assertIsDisplayed()
         composeRule.onNodeWithText("بازار امروز").assertIsDisplayed()
         composeRule.onNodeWithText("طلای ۱۸ عیار").assertIsDisplayed()
         composeRule.onNodeWithText("بیشترین تغییر امروز").assertIsDisplayed()

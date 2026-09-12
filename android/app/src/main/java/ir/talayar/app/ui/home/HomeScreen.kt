@@ -143,7 +143,7 @@ private fun HomeHeader(state: HomeViewModel.UiState) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column {
-                Text("سلام 👋", style = MaterialTheme.typography.headlineSmall)
+                Text("سلام جواد عیسی لو", style = MaterialTheme.typography.headlineSmall)
                 Text("بازار امروز", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             LastUpdatedCaption(updatedAt = state.updatedAt, isRefreshing = state.isRefreshing)
