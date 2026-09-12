@@ -1,7 +1,9 @@
 package ir.talayar.app.domain.model
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class VersionComparatorTest {
@@ -46,5 +48,37 @@ class VersionComparatorTest {
         assertNull(VersionComparator.parse("latest"))
         assertEquals(-1, Integer.signum(VersionComparator.compare("oops", "1.0.1")))
         assertEquals(0, VersionComparator.compare("oops", "also-oops"))
+    }
+
+    @Test
+    fun `canonical strips the v prefix and any suffix`() {
+        assertEquals("1.0.3", VersionComparator.canonical("v1.0.3"))
+        assertEquals("1.0.3", VersionComparator.canonical(" 1.0.3 "))
+        assertEquals("1.0.3", VersionComparator.canonical("v1.0.3-hotfix"))
+        assertEquals("1.0.10", VersionComparator.canonical("V1.0.10"))
+        assertNull(VersionComparator.canonical("latest"))
+        assertNull(VersionComparator.canonical(null))
+        assertNull(VersionComparator.canonical("1.0"))
+    }
+
+    @Test
+    fun `isNewer is strictly greater than, never equal or older`() {
+        assertTrue(VersionComparator.isNewer("v1.0.3", "1.0.2"))
+        assertTrue(VersionComparator.isNewer("1.0.10", "1.0.9"))
+        assertTrue(VersionComparator.isNewer("1.1.0", "1.0.99"))
+        assertTrue(VersionComparator.isNewer("2.0.0", "1.9.9"))
+
+        assertFalse("an equal version must never re-offer itself", VersionComparator.isNewer("1.0.2", "1.0.2"))
+        assertFalse(VersionComparator.isNewer("v1.0.2", "1.0.2"))
+        assertFalse("no downgrade", VersionComparator.isNewer("1.0.1", "1.0.2"))
+        assertFalse(VersionComparator.isNewer("1.0.9", "1.0.10"))
+    }
+
+    @Test
+    fun `isNewer rejects unparsable candidates and tolerates an unparsable installed version`() {
+        assertFalse(VersionComparator.isNewer("latest", "1.0.2"))
+        assertFalse(VersionComparator.isNewer(null, "1.0.2"))
+        assertFalse(VersionComparator.isNewer("", "1.0.2"))
+        assertTrue("anything parsable beats an unparsable installed version", VersionComparator.isNewer("1.0.2", "oops"))
     }
 }

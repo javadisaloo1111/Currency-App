@@ -53,22 +53,35 @@ class SettingsViewModel @Inject constructor(
     sealed interface UpdateCheckState {
         data object Idle : UpdateCheckState
         data object Checking : UpdateCheckState
+
+        /** Only ever set after a release was really read: same or older version. */
         data object Latest : UpdateCheckState
+
         data class Available(val version: String) : UpdateCheckState
-        data object Failed : UpdateCheckState
+
+        /**
+         * The precise, user-presentable reason the check could not complete
+         * (offline vs. unreachable update server vs. rate limit vs. no package
+         * published …). Never a blanket "failed", never «آخرین نسخه را دارید».
+         */
+        data class Failed(val message: String) : UpdateCheckState
     }
 
     private val updateCheck = MutableStateFlow<UpdateCheckState>(UpdateCheckState.Idle)
     val updateCheckState: StateFlow<UpdateCheckState> = updateCheck
 
-    /** Manual "بررسی بروزرسانی": always bypasses the periodic-check cache. */
+    /** Manual «بررسی بروزرسانی»: always bypasses the periodic-check cache. */
     fun checkUpdates() {
         viewModelScope.launch {
             updateCheck.value = UpdateCheckState.Checking
             updateCheck.value = when (val result = updateRepository.checkForUpdate(force = true)) {
+                // Verified against a real source: nothing newer is published.
                 is UpdateCheckResult.NoUpdate -> UpdateCheckState.Latest
                 is UpdateCheckResult.Available -> UpdateCheckState.Available(result.update.latestVersion)
-                UpdateCheckResult.Failed -> UpdateCheckState.Failed
+                is UpdateCheckResult.Error -> UpdateCheckState.Failed(result.error.userMessage)
+                // Unreachable for a forced check (the cache is bypassed). It must
+                // still never be rendered as "you are up to date".
+                UpdateCheckResult.NotDueYet -> UpdateCheckState.Idle
             }
         }
     }

@@ -11,8 +11,8 @@ plugins {
 // release (docs/RELEASE.md). `appVersionName` also feeds BuildConfig.APP_VERSION_NAME,
 // which is what the in-app updater reports as the "installed" version, so the two
 // can never drift apart.
-val appVersionCode = 3
-val appVersionName = "1.0.2"
+val appVersionCode = 4
+val appVersionName = "1.0.3"
 
 android {
     namespace = "ir.talayar.app"

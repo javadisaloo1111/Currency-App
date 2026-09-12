@@ -1,5 +1,7 @@
 package ir.talayar.app.data.update
 
+import ir.talayar.app.domain.model.UpdateErrorKind
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -67,5 +69,90 @@ class ApkVerifierTest {
         val empty = tmp.newFile("empty.apk")
         empty.writeBytes(ByteArray(0))
         assertFalse(ApkVerifier.verify(empty, 0, null))
+    }
+
+    // ------------------------------------------------------------------
+    // check(): the precise rejection reason that drives the user-facing copy
+    // ------------------------------------------------------------------
+
+    @Test
+    fun `check accepts a complete apk with a matching checksum`() {
+        val apk = fakeApk()
+
+        assertEquals(ApkCheck.Ok, ApkVerifier.check(apk, apk.length(), sha256Of(apk)))
+    }
+
+    @Test
+    fun `check reports an incomplete download when the size differs`() {
+        val apk = fakeApk()
+
+        val rejected = ApkVerifier.check(apk, apk.length() + 500, null)
+
+        assertTrue("expected a rejection, got $rejected", rejected is ApkCheck.Rejected)
+        assertEquals(UpdateErrorKind.INCOMPLETE_DOWNLOAD, (rejected as ApkCheck.Rejected).kind)
+    }
+
+    @Test
+    fun `check reports a checksum mismatch for corrupted bytes`() {
+        val apk = fakeApk()
+
+        val rejected = ApkVerifier.check(apk, apk.length(), "0".repeat(64))
+
+        assertTrue(rejected is ApkCheck.Rejected)
+        assertEquals(UpdateErrorKind.CHECKSUM_MISMATCH, (rejected as ApkCheck.Rejected).kind)
+    }
+
+    @Test
+    fun `check reports an invalid apk when the zip magic is missing`() {
+        val notZip = tmp.newFile("not-an-apk.bin")
+        notZip.writeBytes(ByteArray(4096) { 0x00 })
+
+        val rejected = ApkVerifier.check(notZip, 4096, null)
+
+        assertTrue(rejected is ApkCheck.Rejected)
+        assertEquals(UpdateErrorKind.INVALID_APK, (rejected as ApkCheck.Rejected).kind)
+    }
+
+    @Test
+    fun `check reports an invalid apk for a missing or empty file`() {
+        val missing = ApkVerifier.check(File(tmp.root, "missing.apk"), 100, null)
+        val empty = tmp.newFile("empty.apk").also { it.writeBytes(ByteArray(0)) }
+        val emptyResult = ApkVerifier.check(empty, 0, null)
+
+        assertEquals(UpdateErrorKind.INVALID_APK, (missing as ApkCheck.Rejected).kind)
+        assertEquals(UpdateErrorKind.INVALID_APK, (emptyResult as ApkCheck.Rejected).kind)
+    }
+
+    @Test
+    fun `the size check runs before hashing so a truncated file is reported as incomplete`() {
+        val apk = fakeApk()
+
+        val rejected = ApkVerifier.check(apk, apk.length() * 2, "0".repeat(64))
+
+        assertEquals(UpdateErrorKind.INCOMPLETE_DOWNLOAD, (rejected as ApkCheck.Rejected).kind)
+    }
+
+    @Test
+    fun `an unknown expected size or checksum skips those checks instead of failing`() {
+        val apk = fakeApk()
+
+        assertEquals(ApkCheck.Ok, ApkVerifier.check(apk, 0L, null))
+        assertEquals(ApkCheck.Ok, ApkVerifier.check(apk, -1L, "   "))
+    }
+
+    @Test
+    fun `a checksum published in upper case still matches`() {
+        val apk = fakeApk()
+
+        assertEquals(ApkCheck.Ok, ApkVerifier.check(apk, apk.length(), sha256Of(apk).uppercase()))
+    }
+
+    @Test
+    fun `a rejected file never passes the boolean gate handed to the installer`() {
+        val apk = fakeApk()
+
+        assertFalse(ApkVerifier.verify(apk, apk.length() + 1, null))
+        assertFalse(ApkVerifier.verify(apk, apk.length(), "0".repeat(64)))
+        assertTrue(ApkVerifier.verify(apk, apk.length(), sha256Of(apk)))
     }
 }

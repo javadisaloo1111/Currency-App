@@ -20,7 +20,8 @@ import org.junit.Test
  *  - offer the next release, resolving the exact asset name/URL the release
  *    workflow publishes (`app-release-v<x.y.z>.apk` + its `.sha256` sidecar),
  *  - stay silent for the very same version (no update loop after upgrading),
- *  - stay silent for older releases (no downgrade).
+ *  - stay silent for older releases (no downgrade),
+ *  - answer «not due yet» (never «you are up to date») for a skipped periodic check.
  *
  * The expectations are derived from [BuildConfig.APP_VERSION_NAME], so the test
  * keeps protecting future releases without being edited on every version bump.
@@ -51,6 +52,9 @@ class ShippedVersionUpdateTest {
                 browserDownloadUrl = "$ASSET_BASE/v$version/app-release-v$version.apk",
                 size = 8_700_000,
                 contentType = "application/vnd.android.package-archive",
+                // GitHub publishes a digest for every uploaded release asset; the
+                // updater uses it as the expected checksum when there is no sidecar.
+                digest = "sha256:$DIGEST_HEX",
             ),
             ReleaseAssetDto(
                 name = "app-release-v$version.apk.sha256",
@@ -79,6 +83,7 @@ class ShippedVersionUpdateTest {
         assertEquals("$ASSET_BASE/v$nextVersion/app-release-v$nextVersion.apk", update.apkUrl)
         assertEquals(8_700_000L, update.apkSize)
         assertEquals("$ASSET_BASE/v$nextVersion/app-release-v$nextVersion.apk.sha256", update.sha256Url)
+        assertEquals(DIGEST_HEX, update.sha256)
         assertTrue(!update.forced)
         assertTrue(VersionComparator.compare("v$nextVersion", shipped) > 0)
     }
@@ -129,8 +134,15 @@ class ShippedVersionUpdateTest {
         assertEquals(1, api.calls)
 
         now += 60L * 60 * 1000 // one hour later, app re-opened
-        assertTrue(repository.checkForUpdate(force = false) is UpdateCheckResult.NoUpdate)
+        // NotDueYet — NOT NoUpdate: nothing was verified, so the UI must not claim
+        // «آخرین نسخه را دارید» for a check that never happened.
+        val second = repository.checkForUpdate(force = false)
+        assertTrue("expected NotDueYet, got $second", second is UpdateCheckResult.NotDueYet)
         assertEquals("the release api must not be polled again", 1, api.calls)
+
+        // A manual check always goes to the network and answers truthfully.
+        assertTrue(repository.checkForUpdate(force = true) is UpdateCheckResult.Available)
+        assertEquals(2, api.calls)
     }
 
     // Nested (not file-level) on purpose: UpdateRepositoryImplTest.kt already
@@ -160,5 +172,6 @@ class ShippedVersionUpdateTest {
 
     private companion object {
         const val ASSET_BASE = "https://github.com/javadisaloo1111/Currency-App/releases/download"
+        const val DIGEST_HEX = "9759bc350d1780b1f2d79a4d5ccf2ca3b9c4f6e4cea2e510306322dbd40fbb43"
     }
 }
