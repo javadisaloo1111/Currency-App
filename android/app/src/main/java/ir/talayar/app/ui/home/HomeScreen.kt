@@ -188,7 +188,7 @@ private fun MiniStatCard(asset: MarketAsset, onClick: () -> Unit, modifier: Modi
                 currency = asset.currency,
                 style = MaterialTheme.typography.titleSmall,
             )
-            ChangeBadge(direction = asset.direction, changePercent = asset.changePercent)
+            ChangeBadge(direction = asset.direction, change = asset.change)
         }
     }
 }

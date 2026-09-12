@@ -101,10 +101,15 @@ class HomeViewModel @Inject constructor(
             refreshState.value = if (result.isSuccess) {
                 RefreshState.Idle
             } else {
-                RefreshState.Failed(message = "اتصال به سرور برقرار نشد")
+                RefreshState.Failed(message = errorMessageOf(result))
             }
         }
     }
+
+    /** Maps a refresh failure to a short user-facing message. */
+    private fun errorMessageOf(result: Result<Unit>): String =
+        (result.exceptionOrNull() as? ir.talayar.app.data.remote.GatewayException)?.userMessage
+            ?: "اتصال به سرور برقرار نشد"
 
     companion object {
         const val FEATURED_SYMBOL = "GOLD_18K"

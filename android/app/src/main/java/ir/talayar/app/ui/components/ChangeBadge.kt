@@ -16,13 +16,14 @@ import ir.talayar.app.ui.theme.TalayarTheme
 
 /**
  * Market-standard change badge: green pill with ↑ for gains, red pill with ↓
- * for losses, neutral pill with — when unchanged. Numeric text stays logically
- * ordered inside the RTL layout.
+ * for losses, neutral pill with — when unchanged. Shows the absolute change
+ * amount in Toman (no percentages in the price UI). Numeric text stays
+ * logically ordered inside the RTL layout.
  */
 @Composable
 fun ChangeBadge(
     direction: ChangeDirection,
-    changePercent: Double?,
+    change: Double?,
     modifier: Modifier = Modifier,
     emphasized: Boolean = false,
 ) {
@@ -52,11 +53,13 @@ fun ChangeBadge(
                 text = arrow,
                 style = if (emphasized) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelMedium,
             )
-            Text(
-                text = Formatters.percent(changePercent),
-                style = if (emphasized) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(start = 2.dp),
-            )
+            if (direction != ChangeDirection.FLAT && change != null && change != 0.0) {
+                Text(
+                    text = Formatters.changeAmount(change),
+                    style = if (emphasized) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.padding(start = 2.dp),
+                )
+            }
         }
     }
 }

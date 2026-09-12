@@ -9,6 +9,8 @@ import ir.talayar.app.data.mapper.toDomain
 import ir.talayar.app.data.mapper.toEntity
 import ir.talayar.app.data.remote.HistoryDto
 import ir.talayar.app.data.remote.MarketApi
+import ir.talayar.app.data.remote.classifyGatewayFailure
+import ir.talayar.app.BuildConfig
 import ir.talayar.app.domain.repository.SettingsRepository
 import ir.talayar.app.domain.model.AlertKind
 import ir.talayar.app.domain.model.AlertRule
@@ -18,10 +20,13 @@ import ir.talayar.app.domain.model.MarketAsset
 import ir.talayar.app.domain.model.PriceHistory
 import ir.talayar.app.domain.model.TriggeredAlert
 import ir.talayar.app.domain.repository.MarketRepository
+import android.util.Log
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import java.io.IOException
+import java.net.URI
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,6 +38,9 @@ import javax.inject.Singleton
  *    points (giving charts 15s-density between gateway snapshots).
  *  - getHistory() merges gateway history into Room, then serves Room (so a
  *    failed network call still returns the last cached series).
+ *  - Network calls go through [callGateways]: the canonical static API first,
+ *    then public mirrors of the very same published snapshot. A user-configured
+ *    custom server replaces the list (explicit intent, no silent fallback).
  *  - All network errors surface as Result.failure without ever crashing.
  */
 @Singleton
@@ -44,7 +52,58 @@ class MarketRepositoryImpl @Inject constructor(
     private val alertDao: AlertDao,
 ) : MarketRepository {
 
-    private suspend fun url(path: String): String = settings.baseUrl().trimEnd('/') + path
+    /** Last endpoint that answered successfully; preferred on the next call. */
+    @Volatile
+    private var stickyBase: String? = null
+
+    /**
+     * Runs [call] against the gateway endpoints in priority order.
+     *
+     * Built-in mode tries the canonical Pages URL first and then mirrors of the
+     * same snapshot (raw.githubusercontent, jsDelivr CDN), so a single
+     * unavailable host can never take price updates down. The endpoint that
+     * last succeeded is sticky until it fails again.
+     */
+    private suspend fun <T> callGateways(path: String, call: suspend (String) -> T): T {
+        val custom = settings.customBaseUrl()
+        val bases = if (!custom.isNullOrBlank()) {
+            listOf(custom)
+        } else {
+            val all = STATIC_ENDPOINTS
+            val sticky = stickyBase
+            if (sticky != null && all.size > 1 && all.contains(sticky)) {
+                listOf(sticky) + all.filter { it != sticky }
+            } else {
+                all
+            }
+        }
+
+        var lastFailure: Throwable? = null
+        for (base in bases) {
+            val fullUrl = base.trimEnd('/') + path
+            try {
+                val result = call(fullUrl)
+                stickyBase = base
+                return result
+            } catch (cancellation: CancellationException) {
+                throw cancellation
+            } catch (t: Throwable) {
+                lastFailure = t
+                Log.w(
+                    LOG_TAG,
+                    "endpoint failed [${hostOf(fullUrl)}]: ${t.javaClass.simpleName}" +
+                        (t.message?.let { ": ${it.take(120)}" } ?: ""),
+                )
+            }
+        }
+        throw classifyGatewayFailure(lastFailure ?: IOException("همه مسیرها در دسترس نیستند"))
+    }
+
+    private fun hostOf(url: String): String = try {
+        URI(url).host ?: url
+    } catch (_: Exception) {
+        url
+    }
 
     // ---------------------------------------------------------------------
     // observe
@@ -81,7 +140,9 @@ class MarketRepositoryImpl @Inject constructor(
     // ---------------------------------------------------------------------
 
     override suspend fun refresh(): Result<Unit> = safeApi {
-        val envelope = api.prices(url(API_PRICES), System.currentTimeMillis())
+        val envelope = callGateways(API_PRICES) { endpoint ->
+            api.prices(endpoint, System.currentTimeMillis())
+        }
         val entities = envelope.data.mapNotNull { it.toEntity() }
         priceDao.upsertAll(entities)
 
@@ -102,7 +163,9 @@ class MarketRepositoryImpl @Inject constructor(
 
     override suspend fun getHistory(symbol: String): Result<PriceHistory> {
         val network = safeApi {
-            api.history(url(API_HISTORY.format(symbol)), System.currentTimeMillis())
+            callGateways(API_HISTORY.format(symbol)) { endpoint ->
+                api.history(endpoint, System.currentTimeMillis())
+            }
         }
 
         // Merge gateway points into the local store (IGNORE keeps local points).

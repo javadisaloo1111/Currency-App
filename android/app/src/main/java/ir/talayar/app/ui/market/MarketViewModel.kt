@@ -49,16 +49,22 @@ class MarketViewModel @Inject constructor(
 
     /** null = idle, true = running, false = failed */
     private val refreshState = MutableStateFlow<Boolean?>(null)
+    private val lastError = MutableStateFlow<String?>(null)
 
     private val filters = combine(query, category) { q, c -> Filters(q, c) }
+
+    // refreshState + lastError merged so combine stays within the 5-flow overload.
+    private val refreshOutcome = combine(refreshState, lastError) { state, error -> state to error }
 
     val uiState: StateFlow<UiState> = combine(
         observeMarket(),
         filters,
         settingsRepository.settings,
         connectivity.isOnline,
-        refreshState,
-    ) { assets, f, settings, online, refreshing ->
+        refreshOutcome,
+    ) { assets, f, settings, online, outcome ->
+        val refreshing = outcome.first
+        val error = outcome.second
         val normalizedQuery = normalize(f.query)
         val filtered = assets.filter { asset ->
             (f.category == null || asset.category == f.category) &&
@@ -76,7 +82,7 @@ class MarketViewModel @Inject constructor(
             offline = !online,
             isStale = assets.any { it.isStale },
             updatedAt = assets.map { it.updatedAt }.filter { it > 0 }.maxOrNull(),
-            error = if (refreshing == false && assets.isEmpty()) "اتصال به سرور برقرار نشد" else null,
+            error = if (refreshing == false && assets.isEmpty()) error ?: "اتصال به سرور برقرار نشد" else null,
             refreshInterval = settings.refreshInterval,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState())
@@ -89,7 +95,9 @@ class MarketViewModel @Inject constructor(
         if (refreshState.value == true) return
         viewModelScope.launch {
             refreshState.value = true
-            refreshState.value = refreshPrices().isSuccess
+            val result = refreshPrices()
+            lastError.value = (result.exceptionOrNull() as? ir.talayar.app.data.remote.GatewayException)?.userMessage
+            refreshState.value = result.isSuccess
         }
     }
 

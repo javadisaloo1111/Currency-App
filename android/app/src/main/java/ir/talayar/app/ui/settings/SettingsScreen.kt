@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ir.talayar.app.BuildConfig
-import ir.talayar.app.data.settings.PriceUnit
 import ir.talayar.app.data.settings.RefreshInterval
 import ir.talayar.app.data.settings.SettingsStore
 import ir.talayar.app.data.settings.ThemeMode
@@ -46,14 +45,16 @@ import ir.talayar.app.ui.theme.Dimens
 fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.uiState.collectAsStateWithLifecycle()
     val serverTest by viewModel.serverTestState.collectAsStateWithLifecycle()
+    val updateCheck by viewModel.updateCheckState.collectAsStateWithLifecycle()
 
     SettingsScreen(
         settings = settings,
         serverTest = serverTest,
+        updateCheck = updateCheck,
         onThemeChange = viewModel::setThemeMode,
         onIntervalChange = viewModel::setRefreshInterval,
-        onUnitChange = viewModel::setPriceUnit,
         onNotificationsChange = viewModel::setNotificationsEnabled,
+        onCheckUpdates = viewModel::checkUpdates,
         onSaveServerUrl = viewModel::saveServerUrl,
         onResetServerUrl = viewModel::resetServerUrl,
         onTestServer = viewModel::testServer,
@@ -66,8 +67,9 @@ fun SettingsScreen(
     serverTest: SettingsViewModel.ServerTestState,
     onThemeChange: (ThemeMode) -> Unit,
     onIntervalChange: (RefreshInterval) -> Unit,
-    onUnitChange: (PriceUnit) -> Unit,
     onNotificationsChange: (Boolean) -> Unit,
+    updateCheck: SettingsViewModel.UpdateCheckState = SettingsViewModel.UpdateCheckState.Idle,
+    onCheckUpdates: () -> Unit = {},
     onSaveServerUrl: (String?) -> Unit,
     onResetServerUrl: () -> Unit,
     onTestServer: (String) -> Unit,
@@ -110,14 +112,6 @@ fun SettingsScreen(
                 options = RefreshInterval.entries.map { it.name to it.label },
                 selected = settings.refreshInterval.name,
                 onSelect = { id -> RefreshInterval.fromId(id).let(onIntervalChange) },
-            )
-        }
-
-        SettingsGroup(title = "واحد نمایش قیمت") {
-            ChipRow(
-                options = PriceUnit.entries.map { it.name to it.label },
-                selected = settings.priceUnit.name,
-                onSelect = { id -> PriceUnit.fromId(id).let(onUnitChange) },
             )
         }
 
@@ -178,6 +172,16 @@ fun SettingsScreen(
         }
 
         SettingsGroup(title = "درباره برنامه") {
+            SettingRowButton(
+                text = when (updateCheck) {
+                    SettingsViewModel.UpdateCheckState.Checking -> "در حال بررسی بروزرسانی…"
+                    SettingsViewModel.UpdateCheckState.Latest -> "بروزرسانی: آخرین نسخه را دارید"
+                    is SettingsViewModel.UpdateCheckState.Available ->
+                        "بروزرسانی: نسخه جدید (${ir.talayar.app.core.Formatters.toPersianDigits(updateCheck.version)}) موجود است"
+                    is SettingsViewModel.UpdateCheckState.Failed -> "بررسی بروزرسانی ناموفق بود — تلاش مجدد"
+                    SettingsViewModel.UpdateCheckState.Idle -> "بررسی بروزرسانی"
+                },
+            ) { onCheckUpdates() }
             SettingRowButton(text = "طلایار — نسخه ${ir.talayar.app.core.Formatters.toPersianDigits(BuildConfig.APP_VERSION_NAME)}") { showAbout = true }
             SettingRowButton(text = "قوانین و حریم خصوصی") { showLegal = true }
             Text(
@@ -211,7 +215,9 @@ fun SettingsScreen(
                 "طلایار یک اپلیکیشن فارسی و راست‌به‌چپ برای نمایش قیمت لحظه‌ای طلا، سکه و ارز است.\n\n" +
                     "معماری: Jetpack Compose + Material 3 + MVVM + Clean Architecture\n" +
                     "داده‌ها: درگاه قیمت چندمنبعی با Failover خودکار\n" +
-                    "ذخیره‌سازی آفلاین: Room",
+                    "ذخیره‌سازی آفلاین: Room\n\n" +
+                    "سازنده: جواد عیسی‌لو\n" +
+                    "تلگرام: @javadisaloo",
                 style = MaterialTheme.typography.bodyMedium,
             )
         }

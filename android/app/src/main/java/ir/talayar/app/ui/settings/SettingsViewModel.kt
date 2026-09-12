@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.talayar.app.data.remote.MarketApi
-import ir.talayar.app.data.settings.PriceUnit
 import ir.talayar.app.data.settings.RefreshInterval
 import ir.talayar.app.data.settings.SettingsStore
 import ir.talayar.app.data.settings.ThemeMode
 import ir.talayar.app.domain.model.AppSettings
 import ir.talayar.app.domain.repository.SettingsRepository
+import ir.talayar.app.domain.repository.UpdateRepository
+import ir.talayar.app.domain.repository.UpdateCheckResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +23,7 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val settingsStore: SettingsStore,
     private val api: MarketApi,
+    private val updateRepository: UpdateRepository,
 ) : ViewModel() {
 
     sealed interface ServerTestState {
@@ -39,7 +41,6 @@ class SettingsViewModel @Inject constructor(
 
     fun setThemeMode(mode: ThemeMode) = viewModelScope.launch { settingsRepository.setThemeMode(mode) }
     fun setRefreshInterval(interval: RefreshInterval) = viewModelScope.launch { settingsRepository.setRefreshInterval(interval) }
-    fun setPriceUnit(unit: PriceUnit) = viewModelScope.launch { settingsRepository.setPriceUnit(unit) }
     fun setNotificationsEnabled(enabled: Boolean) = viewModelScope.launch { settingsRepository.setNotificationsEnabled(enabled) }
 
     fun saveServerUrl(rawUrl: String?) = viewModelScope.launch {
@@ -48,6 +49,29 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun resetServerUrl() = saveServerUrl(null)
+
+    sealed interface UpdateCheckState {
+        data object Idle : UpdateCheckState
+        data object Checking : UpdateCheckState
+        data object Latest : UpdateCheckState
+        data class Available(val version: String) : UpdateCheckState
+        data object Failed : UpdateCheckState
+    }
+
+    private val updateCheck = MutableStateFlow<UpdateCheckState>(UpdateCheckState.Idle)
+    val updateCheckState: StateFlow<UpdateCheckState> = updateCheck
+
+    /** Manual "بررسی بروزرسانی": always bypasses the periodic-check cache. */
+    fun checkUpdates() {
+        viewModelScope.launch {
+            updateCheck.value = UpdateCheckState.Checking
+            updateCheck.value = when (val result = updateRepository.checkForUpdate(force = true)) {
+                is UpdateCheckResult.NoUpdate -> UpdateCheckState.Latest
+                is UpdateCheckResult.Available -> UpdateCheckState.Available(result.update.latestVersion)
+                UpdateCheckResult.Failed -> UpdateCheckState.Failed
+            }
+        }
+    }
 
     /** Pings {base}/api/v1/health.json to validate a custom gateway address. */
     fun testServer(rawUrl: String) {

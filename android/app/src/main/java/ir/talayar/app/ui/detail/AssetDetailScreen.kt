@@ -175,13 +175,8 @@ fun AssetDetailScreen(
                     ) {
                         ChangeBadge(
                             direction = asset.direction,
-                            changePercent = asset.changePercent,
+                            change = asset.change,
                             emphasized = true,
-                        )
-                        Text(
-                            text = Formatters.changeAmount(asset.change),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }

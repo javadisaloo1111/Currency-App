@@ -82,6 +82,18 @@ jobs:
           TALAYAR_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: ./gradlew clean testDebugUnitTest assembleRelease --stacktrace
 
+      - name: Name the APK after the tag and publish its checksum
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          NAMED="android/app/build/outputs/apk/release/app-release-${TAG}.apk"
+          cp "$APK" "$NAMED"
+          cd android/app/build/outputs/apk/release
+          sha256sum "app-release-${TAG}.apk" > "app-release-${TAG}.apk.sha256"
+          echo "APK_SIZE=$(stat -c%s "app-release-${TAG}.apk")" >> "$GITHUB_STEP_SUMMARY"
+          echo "APK_SHA256=$(cut -d' ' -f1 "app-release-${TAG}.apk.sha256")" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Write release notes
         env:
           TAG: ${{ steps.tag.outputs.tag }}
@@ -101,7 +113,9 @@ jobs:
           - طراحی Material 3، کاملاً فارسی و راست‌به‌چپ با فونت وزیرمتن
 
           ## نصب
-          فایل `app-release.apk` را دانلود و نصب کنید (اجازه نصب از منابع ناشناس لازم است).
+          فایل `app-release-${TAG}.apk` را دانلود و نصب کنید (اجازه نصب از منابع ناشناس لازم است).
+          از نسخه ۱.۰.۱ به بعد، خود برنامه هم به‌صورت خودکار نسخهٔ جدید را پیدا می‌کند، با تأیید شما دانلود می‌کند و نصب می‌کند (تنظیمات ← بررسی بروزرسانی).
+          تمام قیمت‌ها — از جمله انس جهانی طلا — به تومان نمایش داده می‌شوند.
           منبع قیمت‌ها: Price Gateway چندمنبعی با Failover خودکار — برای به‌روزرسانی لحظه‌ای می‌توانید سرور اختصاصی متصل شوید (README بخش Deployment).
           EOF
 
@@ -111,7 +125,8 @@ jobs:
           TAG: ${{ steps.tag.outputs.tag }}
         run: |
           gh release create "$TAG" \
-            "android/app/build/outputs/apk/release/app-release.apk" \
+            "android/app/build/outputs/apk/release/app-release-${TAG}.apk" \
+            "android/app/build/outputs/apk/release/app-release-${TAG}.apk.sha256" \
             --title "Gold Market Android $TAG" \
             --notes-file "$RUNNER_TEMP/RELEASE_NOTES.md" \
             --latest
