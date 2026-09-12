@@ -178,7 +178,9 @@ fun SettingsScreen(
                     SettingsViewModel.UpdateCheckState.Latest -> "بروزرسانی: آخرین نسخه را دارید"
                     is SettingsViewModel.UpdateCheckState.Available ->
                         "بروزرسانی: نسخه جدید (${ir.talayar.app.core.Formatters.toPersianDigits(updateCheck.version)}) موجود است"
-                    is SettingsViewModel.UpdateCheckState.Failed -> "بررسی بروزرسانی ناموفق بود — تلاش مجدد"
+                    // The exact reason (offline / update server unreachable / rate
+                    // limited / no package published …) — tapping the row retries.
+                    is SettingsViewModel.UpdateCheckState.Failed -> updateCheck.message
                     SettingsViewModel.UpdateCheckState.Idle -> "بررسی بروزرسانی"
                 },
             ) { onCheckUpdates() }

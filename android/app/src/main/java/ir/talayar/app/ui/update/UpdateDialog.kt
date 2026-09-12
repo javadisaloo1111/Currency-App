@@ -1,15 +1,19 @@
 package ir.talayar.app.ui.update
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,13 +32,38 @@ fun UpdateHost(viewModel: UpdateViewModel = hiltViewModel()) {
 
 /**
  * Persian RTL update dialog (Material 3, matches the app theme).
+ *
  * Copy stays user-facing: no "APK"/"GitHub"/"Release" jargon, just
- * «نسخه جدید آمده است» / «به‌روزرسانی» / «بعداً».
+ * «نسخه جدید آمده است» / «به‌روزرسانی» / «بعداً». Failures show the *reason*
+ * (`UpdateError.userMessage`) — never a raw exception, a stack trace or a
+ * misleading «no internet» when the network is up but the update server is not
+ * reachable.
  */
 @Composable
 fun UpdateDialog(state: UpdateViewModel.State, actions: UpdateActions) {
     when (state) {
         UpdateViewModel.State.Hidden -> Unit
+
+        UpdateViewModel.State.Checking -> {
+            AlertDialog(
+                onDismissRequest = { actions.dismiss() },
+                title = { Text("در حال بررسی بروزرسانی…") },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                        Text(
+                            text = "لطفاً چند لحظه صبر کنید.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(start = 12.dp),
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = actions::dismiss) { Text("انصراف") }
+                },
+            )
+        }
+
         is UpdateViewModel.State.Available -> {
             val forced = state.update.forced
             AlertDialog(
@@ -56,6 +85,7 @@ fun UpdateDialog(state: UpdateViewModel.State, actions: UpdateActions) {
                 },
             )
         }
+
         is UpdateViewModel.State.Downloading -> {
             AlertDialog(
                 onDismissRequest = {},
@@ -78,7 +108,10 @@ fun UpdateDialog(state: UpdateViewModel.State, actions: UpdateActions) {
                 },
             )
         }
-        is UpdateViewModel.State.Ready -> Unit
+
+        // The verified package is with the system installer now; nothing to render.
+        UpdateViewModel.State.Ready -> Unit
+
         is UpdateViewModel.State.NeedsPermission -> {
             AlertDialog(
                 onDismissRequest = {},
@@ -97,13 +130,21 @@ fun UpdateDialog(state: UpdateViewModel.State, actions: UpdateActions) {
                 },
             )
         }
-        is UpdateViewModel.State.Failed -> {
+
+        is UpdateViewModel.State.Error -> {
+            // A failure of the download/install phase keeps the update context and
+            // retries the download; a failure of the check phase retries the check.
+            val duringDownload = state.update != null
             AlertDialog(
-                onDismissRequest = actions::dismiss,
-                title = { Text("دانلود ناموفق بود") },
-                text = { Text(state.message) },
+                onDismissRequest = { actions.dismiss() },
+                title = { Text(if (duringDownload) "دانلود ناموفق بود" else "بروزرسانی ناموفق بود") },
+                text = { Text(state.error.userMessage) },
                 confirmButton = {
-                    TextButton(onClick = actions::retryDownload) { Text("تلاش مجدد") }
+                    TextButton(
+                        onClick = { if (duringDownload) actions.retryDownload() else actions.checkNow() },
+                    ) {
+                        Text("تلاش مجدد")
+                    }
                 },
                 dismissButton = {
                     TextButton(onClick = actions::dismiss) { Text("بعداً") }

@@ -13,6 +13,12 @@ data class AppUpdate(
     val apkSize: Long,
     /** URL of the published ".sha256" checksum asset, when present. */
     val sha256Url: String?,
+    /**
+     * Expected SHA-256 (hex) of the package, taken from the digest the release
+     * service publishes for the asset itself. Fallback for a missing/unreadable
+     * [sha256Url] sidecar; null when neither is published.
+     */
+    val sha256: String? = null,
     /** True when the installed version is below the release's supported minimum. */
     val forced: Boolean,
 )
@@ -46,4 +52,19 @@ object VersionComparator {
         for (i in 0..2) if (pa[i] != pb[i]) return pa[i] - pb[i]
         return 0
     }
+
+    /**
+     * Canonical "x.y.z" form of any tag: "v1.0.3" / " 1.0.3 " / "v1.0.3-hotfix"
+     * all become "1.0.3". Null when the text carries no x.y.z triple at all.
+     */
+    fun canonical(version: String?): String? =
+        parse(version)?.let { "${it[0]}.${it[1]}.${it[2]}" }
+
+    /**
+     * True only when [candidate] is a parsable release strictly newer than
+     * [installed] — i.e. never for an equal version (no update loop) and never
+     * for an older one (no downgrade). An unparsable candidate is never "newer".
+     */
+    fun isNewer(candidate: String?, installed: String?): Boolean =
+        parse(candidate) != null && compare(candidate, installed) > 0
 }

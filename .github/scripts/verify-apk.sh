@@ -196,6 +196,33 @@ SHA=$(sha256sum "$APK" 2>/dev/null | cut -d' ' -f1)
 if [ -n "$SHA" ]; then ok "SHA-256 = $SHA"; else warn "could not compute SHA-256"; fi
 
 # ---------------------------------------------------------------------------
+# 6. signing certificate — public fingerprint only. Two APKs signed with
+#    different certificates cannot be upgraded in place (Android refuses with
+#    INSTALL_FAILED_UPDATE_INCOMPATIBLE), which is exactly what the in-app updater
+#    hands to the system installer, so every build reports which key signed it.
+#    Warn-only: an unreadable certificate must never fail a release.
+# ---------------------------------------------------------------------------
+CERT_SHA=""
+SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+if [ -d "$SDK/build-tools" ]; then
+  # minSdk 26 -> AGP signs with APK Signature Scheme v2 only (no JAR/v1 signature),
+  # so keytool cannot see it; apksigner must. Try every build-tools, newest first.
+  for tool in $(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr); do
+    CERT_SHA="$("$tool" verify --print-certs "$APK" 2>/dev/null \
+      | sed -n 's/^[[:space:]]*Signer #1 certificate SHA-256 digest:[[:space:]]*//p' | head -1)"
+    if [ -n "$CERT_SHA" ]; then break; fi
+  done
+fi
+if [ -z "$CERT_SHA" ] && command -v keytool >/dev/null 2>&1; then
+  CERT_SHA="$(keytool -printcert -jarfile "$APK" 2>/dev/null | sed -n 's/^SHA256: //p' | head -1 | tr -d ':')"
+fi
+if [ -n "$CERT_SHA" ]; then
+  ok "signer certificate SHA-256 = $CERT_SHA"
+else
+  warn "could not read the signer certificate (apksigner/keytool unavailable or unsigned APK)"
+fi
+
+# ---------------------------------------------------------------------------
 # report
 # ---------------------------------------------------------------------------
 if [ -n "$REPORT" ]; then
@@ -207,6 +234,7 @@ if [ -n "$REPORT" ]; then
     echo "- فایل: \`$(basename "$APK")\` — ${SIZE} bytes"
     [ -n "$SHA" ] && echo "- SHA-256: \`${SHA}\`"
     [ -n "$VNAME" ] && echo "- \`versionName=${VNAME}\` / \`versionCode=${VCODE}\` / \`applicationId=${PKG}\`"
+    [ -n "$CERT_SHA" ] && echo "- signer certificate SHA-256: \`${CERT_SHA}\`"
   } > "$REPORT"
   note "report written to $REPORT"
 fi

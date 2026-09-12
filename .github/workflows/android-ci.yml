@@ -99,3 +99,94 @@ jobs:
           name: gradle-output
           path: android/gradle-output.log
           if-no-files-found: warn
+
+  # Diagnostic job (manual dispatch only, kept off `main`): compares the signing
+  # certificate of the newest published release APK with the previous one. Two
+  # APKs signed with different certificates cannot be upgraded in place — Android
+  # refuses with INSTALL_FAILED_UPDATE_INCOMPATIBLE — which is exactly what the
+  # in-app updater hands to the system installer.
+  apk-signature-compatibility:
+    name: APK Signature Compatibility (dispatch only)
+    # workflow_dispatch is not available to this automation token, so the job is
+    # scoped to the diagnostic branch instead and runs on a normal push there.
+    if: github.ref == 'refs/heads/arena/01a094fb-currency-app'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Download the two newest published release APKs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAGS="$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=10" \
+            --jq '[.[] | select(.draft == false and .prerelease == false) | .tag_name] | .[]')"
+          echo "published releases (newest first): $TAGS"
+          NEW_TAG="$(printf '%s\n' "$TAGS" | sed -n 1p)"
+          OLD_TAG="$(printf '%s\n' "$TAGS" | sed -n 2p)"
+          echo "NEW_TAG=$NEW_TAG" >> "$GITHUB_ENV"
+          echo "OLD_TAG=$OLD_TAG" >> "$GITHUB_ENV"
+          mkdir -p apkcmp/new apkcmp/old
+          gh release download "$NEW_TAG" --repo "$GITHUB_REPOSITORY" --pattern "app-release-*.apk" --dir apkcmp/new --clobber
+          gh release download "$OLD_TAG" --repo "$GITHUB_REPOSITORY" --pattern "app-release-*.apk" --dir apkcmp/old --clobber
+          find apkcmp -name '*.apk' -printf '%p  %s bytes\n'
+
+      - name: Compare the signing certificates
+        run: |
+          set -uo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          APKSIGNER="$(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -V | tail -1)"
+          echo "apksigner: ${APKSIGNER:-<not found>}"
+
+          java -version 2>&1 | head -2
+          echo "available apksigner binaries:"
+          find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr
+
+          # minSdk 26 -> AGP signs with APK Signature Scheme v2 only (no JAR/v1
+          # signature), so keytool cannot see the certificate; apksigner must.
+          # Try every installed build-tools, newest first: the newest ones may
+          # need a Java version this job does not have.
+          cert_sha256() {
+            local apk="$1" out="" tool
+            for tool in $(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr); do
+              echo "trying $tool" >&2
+              out="$("$tool" verify --print-certs "$apk" 2>&1 \
+                    | sed -n 's/^[[:space:]]*Signer #1 certificate SHA-256 digest:[[:space:]]*//p' | head -1)"
+              if [ -n "$out" ]; then printf '%s' "$out"; return 0; fi
+              "$tool" verify --print-certs "$apk" 2>&1 | head -4 >&2
+            done
+            out="$(keytool -printcert -jarfile "$apk" 2>/dev/null \
+                  | sed -n 's/^SHA256: //p' | head -1 | tr -d ':')"
+            if [ -n "$out" ]; then printf '%s' "$out"; return 0; fi
+            return 1
+          }
+
+          NEW_APK="$(find apkcmp/new -name '*.apk' | head -1)"
+          OLD_APK="$(find apkcmp/old -name '*.apk' | head -1)"
+          NEW_CERT="$(cert_sha256 "$NEW_APK")"
+          OLD_CERT="$(cert_sha256 "$OLD_APK")"
+          NEW_FILE_SHA="$(sha256sum "$NEW_APK" | cut -d' ' -f1)"
+          OLD_FILE_SHA="$(sha256sum "$OLD_APK" | cut -d' ' -f1)"
+          echo "$NEW_TAG apk file sha256=$NEW_FILE_SHA size=$(stat -c%s "$NEW_APK")"
+          echo "$OLD_TAG apk file sha256=$OLD_FILE_SHA size=$(stat -c%s "$OLD_APK")"
+          echo "::notice title=Published APK digests::$NEW_TAG sha256=$NEW_FILE_SHA size=$(stat -c%s "$NEW_APK") | $OLD_TAG sha256=$OLD_FILE_SHA size=$(stat -c%s "$OLD_APK")"
+
+          echo "$NEW_TAG signer certificate SHA-256 : ${NEW_CERT:-<unreadable>}"
+          echo "$OLD_TAG signer certificate SHA-256 : ${OLD_CERT:-<unreadable>}"
+          if [ -n "$APKSIGNER" ]; then "$APKSIGNER" verify --print-certs -v "$NEW_APK" 2>/dev/null | head -12 || true; fi
+
+          if [ -z "$NEW_CERT" ] || [ -z "$OLD_CERT" ]; then
+            RAW="$(find "$SDK/build-tools" -name apksigner -type f 2>/dev/null | sort -Vr | head -1)"
+            DETAIL="$([ -n "$RAW" ] && "$RAW" verify --print-certs "$NEW_APK" 2>&1 | head -3 | tr '\n' ' ')"
+            echo "::warning::could not read a signing certificate ($NEW_TAG='${NEW_CERT:-?}' / $OLD_TAG='${OLD_CERT:-?}'); apksigner said: ${DETAIL:-n/a}"
+            exit 0
+          fi
+          if [ "$NEW_CERT" = "$OLD_CERT" ]; then
+            echo "::notice title=APK signature compatibility::SAME signing certificate for $OLD_TAG and $NEW_TAG (SHA-256 $NEW_CERT) — the in-app update installs over the previous version."
+          else
+            echo "::warning title=APK signature compatibility::DIFFERENT signing certificates: $OLD_TAG=$OLD_CERT vs $NEW_TAG=$NEW_CERT — Android refuses an in-place upgrade (INSTALL_FAILED_UPDATE_INCOMPATIBLE); the previous version must be uninstalled once. Cause: no ANDROID_KEYSTORE_* secrets, so every CI run generates a fresh debug key."
+          fi
