@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-14T14:22:32.463Z",
- "generated_at": "2026-09-14T14:22:32.463Z",
+ "updated_at": "2026-09-14T14:47:43.301Z",
+ "generated_at": "2026-09-14T14:47:43.301Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 234279000,
-   "change": -489000,
-   "change_percent": -0.21,
+   "price": 234023000,
+   "change": -745000,
+   "change_percent": -0.32,
    "day_high": 237093000,
    "day_low": 233496000,
    "prev_price": 234768000,
    "source": "tgju",
-   "updated_at": "2026-09-14T14:22:32.463Z",
+   "updated_at": "2026-09-14T14:47:43.301Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 312369000,
-   "change": -652000,
-   "change_percent": -0.21,
+   "price": 312027000,
+   "change": -994000,
+   "change_percent": -0.32,
    "day_high": 316121000,
    "day_low": 311325000,
    "prev_price": 313021000,
    "source": "tgju",
-   "updated_at": "2026-09-14T14:22:32.463Z",
+   "updated_at": "2026-09-14T14:47:43.301Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "مثقال",
-   "price": 1014840000,
-   "change": -2190000,
-   "change_percent": -0.22,
+   "price": 1013730000,
+   "change": -3300000,
+   "change_percent": -0.33,
    "day_high": 1027050000,
    "day_low": 1011450000,
    "prev_price": 1017030000,
    "source": "tgju",
-   "updated_at": "2026-09-14T14:22:32.463Z",
+   "updated_at": "2026-09-14T14:47:43.301Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 9968934120,
-   "change": -184806120,
-   "change_percent": -1.85,
-   "day_high": 10164616680,
-   "day_low": 9935347860,
-   "prev_price": 10153740240,
+   "price": 9941318730,
+   "change": -199370430,
+   "change_percent": -2.01,
+   "day_high": 10151551620,
+   "day_low": 9922577490,
+   "prev_price": 10140689160,
    "source": "tgju+toman",
-   "updated_at": "2026-09-14T14:22:32.463Z",
+   "updated_at": "2026-09-14T14:47:43.301Z",
    "is_stale": false
   }
  ]
