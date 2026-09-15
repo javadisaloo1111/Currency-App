@@ -4,14 +4,14 @@
  "category": "coin",
  "currency": "TOMAN",
  "unit": "عدد",
- "price": 2314850000,
- "change": -25000000,
+ "price": 2314950000,
+ "change": -24900000,
  "change_percent": -1.08,
  "day_high": 2325100000,
  "day_low": 2309800000,
  "prev_price": 2339850000,
  "source": "tgju",
- "updated_at": "2026-09-15T12:01:11.034Z",
+ "updated_at": "2026-09-15T12:28:29.271Z",
  "is_stale": false,
- "generated_at": "2026-09-15T12:01:11.034Z"
+ "generated_at": "2026-09-15T12:28:29.271Z"
 }
