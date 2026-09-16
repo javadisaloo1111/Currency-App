@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-16T16:15:08.459Z",
- "generated_at": "2026-09-16T16:15:08.459Z",
+ "updated_at": "2026-09-16T16:32:15.789Z",
+ "generated_at": "2026-09-16T16:32:15.789Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2340100000,
-   "change": 25250000,
-   "change_percent": 1.09,
+   "price": 2339850000,
+   "change": 25000000,
+   "change_percent": 1.08,
    "day_high": 2350100000,
    "day_low": 2339800000,
    "prev_price": 2314850000,
    "source": "tgju",
-   "updated_at": "2026-09-16T16:15:08.459Z",
+   "updated_at": "2026-09-16T16:32:15.789Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2293700000,
-   "change": 23700000,
-   "change_percent": 1.04,
+   "price": 2292400000,
+   "change": 22400000,
+   "change_percent": 0.99,
    "day_high": 2305900000,
    "day_low": 2292300000,
    "prev_price": 2270000000,
    "source": "tgju",
-   "updated_at": "2026-09-16T16:15:08.459Z",
+   "updated_at": "2026-09-16T16:32:15.789Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,7 @@
    "day_low": 1190000000,
    "prev_price": 1180000000,
    "source": "tgju",
-   "updated_at": "2026-09-16T16:15:08.459Z",
+   "updated_at": "2026-09-16T16:32:15.789Z",
    "is_stale": false
   },
   {
@@ -64,7 +64,7 @@
    "day_low": 630000000,
    "prev_price": 620000000,
    "source": "tgju",
-   "updated_at": "2026-09-16T16:15:08.459Z",
+   "updated_at": "2026-09-16T16:32:15.789Z",
    "is_stale": false
   },
   {
@@ -80,7 +80,7 @@
    "day_low": 280000000,
    "prev_price": 330000000,
    "source": "tgju",
-   "updated_at": "2026-09-16T16:15:08.459Z",
+   "updated_at": "2026-09-16T16:32:15.789Z",
    "is_stale": false
   }
  ]
