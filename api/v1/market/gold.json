@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-16T21:14:38.891Z",
- "generated_at": "2026-09-16T21:14:38.891Z",
+ "updated_at": "2026-09-16T21:32:14.792Z",
+ "generated_at": "2026-09-16T21:32:14.792Z",
  "is_stale": false,
  "data": [
   {
@@ -10,13 +10,13 @@
    "currency": "TOMAN",
    "unit": "گرم",
    "price": 235013000,
-   "change": 2422000,
-   "change_percent": 1.04,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 236634000,
    "day_low": 232578000,
-   "prev_price": 232591000,
+   "prev_price": 235013000,
    "source": "tgju",
-   "updated_at": "2026-09-16T21:14:38.891Z",
+   "updated_at": "2026-09-16T21:32:14.792Z",
    "is_stale": false
   },
   {
@@ -26,13 +26,13 @@
    "currency": "TOMAN",
    "unit": "گرم",
    "price": 313348000,
-   "change": 3229000,
-   "change_percent": 1.04,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 315508000,
    "day_low": 310100000,
-   "prev_price": 310119000,
+   "prev_price": 313348000,
    "source": "tgju",
-   "updated_at": "2026-09-16T21:14:38.891Z",
+   "updated_at": "2026-09-16T21:32:14.792Z",
    "is_stale": false
   },
   {
@@ -42,13 +42,13 @@
    "currency": "TOMAN",
    "unit": "مثقال",
    "price": 1017950000,
-   "change": 10470000,
-   "change_percent": 1.04,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 1025050000,
    "day_low": 1015950000,
-   "prev_price": 1007480000,
+   "prev_price": 1017950000,
    "source": "tgju",
-   "updated_at": "2026-09-16T21:14:38.891Z",
+   "updated_at": "2026-09-16T21:32:14.792Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 9816603150,
-   "change": -83118300,
-   "change_percent": -0.85,
-   "day_high": 10049661700,
-   "day_low": 9763565100,
-   "prev_price": 9899721450,
+   "price": 9827989850,
+   "change": 13691700,
+   "change_percent": 0.14,
+   "day_high": 9831654800,
+   "day_low": 9815819450,
+   "prev_price": 9814298150,
    "source": "tgju+toman",
-   "updated_at": "2026-09-16T21:14:38.891Z",
+   "updated_at": "2026-09-16T21:32:14.792Z",
    "is_stale": false
   }
  ]
