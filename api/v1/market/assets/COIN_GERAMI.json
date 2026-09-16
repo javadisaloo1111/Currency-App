@@ -8,10 +8,10 @@
  "change": 0,
  "change_percent": 0,
  "day_high": 330000000,
- "day_low": 330000000,
+ "day_low": 280000000,
  "prev_price": 330000000,
  "source": "tgju",
- "updated_at": "2026-09-16T11:14:18.613Z",
+ "updated_at": "2026-09-16T11:32:36.907Z",
  "is_stale": false,
- "generated_at": "2026-09-16T11:14:18.613Z"
+ "generated_at": "2026-09-16T11:32:36.907Z"
 }
