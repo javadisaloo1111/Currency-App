@@ -4,14 +4,14 @@
  "category": "gold",
  "currency": "TOMAN",
  "unit": "مثقال",
- "price": 1011010000,
- "change": -6940000,
- "change_percent": -0.69,
+ "price": 1011980000,
+ "change": -5970000,
+ "change_percent": -0.59,
  "day_high": 1015050000,
  "day_low": 1005450000,
  "prev_price": 1017950000,
  "source": "tgju",
- "updated_at": "2026-09-17T14:20:27.562Z",
+ "updated_at": "2026-09-17T14:42:25.349Z",
  "is_stale": false,
- "generated_at": "2026-09-17T14:20:27.562Z"
+ "generated_at": "2026-09-17T14:42:25.349Z"
 }
