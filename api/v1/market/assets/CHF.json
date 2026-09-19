@@ -4,14 +4,14 @@
  "category": "currency",
  "currency": "TOMAN",
  "unit": "فرانک",
- "price": 2785800,
- "change": 14500,
- "change_percent": 0.52,
- "day_high": 2787100,
+ "price": 2796600,
+ "change": 25300,
+ "change_percent": 0.91,
+ "day_high": 2804300,
  "day_low": 2761100,
  "prev_price": 2771300,
  "source": "tgju",
- "updated_at": "2026-09-19T08:49:26.542Z",
+ "updated_at": "2026-09-19T09:01:57.270Z",
  "is_stale": false,
- "generated_at": "2026-09-19T08:49:26.542Z"
+ "generated_at": "2026-09-19T09:01:57.270Z"
 }
