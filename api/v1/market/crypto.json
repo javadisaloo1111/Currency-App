@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-20T04:41:06.659Z",
- "generated_at": "2026-09-20T04:41:06.659Z",
+ "updated_at": "2026-09-20T04:57:00.179Z",
+ "generated_at": "2026-09-20T04:57:00.179Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "crypto",
    "currency": "TOMAN",
    "unit": "تتر",
-   "price": 2286220,
-   "change": 1360,
-   "change_percent": 0.06,
+   "price": 2286470,
+   "change": 1610,
+   "change_percent": 0.07,
    "day_high": 2287100,
    "day_low": 2276820,
    "prev_price": 2284860,
    "source": "tgju",
-   "updated_at": "2026-09-20T04:41:06.659Z",
+   "updated_at": "2026-09-20T04:57:00.179Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "crypto",
    "currency": "TOMAN",
    "unit": "بیت‌کوین",
-   "price": 183947562000,
-   "change": -1904947000,
-   "change_percent": -1.04,
+   "price": 183752840000,
+   "change": -2099669000,
+   "change_percent": -1.14,
    "day_high": 186062727000,
    "day_low": 182918550000,
    "prev_price": 185852509000,
    "source": "tgju",
-   "updated_at": "2026-09-20T04:41:06.659Z",
+   "updated_at": "2026-09-20T04:57:00.179Z",
    "is_stale": false
   }
  ]
