@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-20T16:59:52.981Z",
- "generated_at": "2026-09-20T16:59:52.981Z",
+ "updated_at": "2026-09-20T17:17:25.750Z",
+ "generated_at": "2026-09-20T17:17:25.750Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 241234000,
-   "change": 2453000,
+   "price": 241237000,
+   "change": 2456000,
    "change_percent": 1.03,
    "day_high": 244944000,
    "day_low": 238771000,
    "prev_price": 238781000,
    "source": "tgju",
-   "updated_at": "2026-09-20T16:59:52.981Z",
+   "updated_at": "2026-09-20T17:17:25.750Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 321643000,
-   "change": 3272000,
+   "price": 321646000,
+   "change": 3275000,
    "change_percent": 1.03,
    "day_high": 326589000,
    "day_low": 318359000,
    "prev_price": 318371000,
    "source": "tgju",
-   "updated_at": "2026-09-20T16:59:52.981Z",
+   "updated_at": "2026-09-20T17:17:25.750Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "مثقال",
-   "price": 1045020000,
-   "change": 10710000,
+   "price": 1045040000,
+   "change": 10730000,
    "change_percent": 1.04,
-   "day_high": 1061050000,
+   "day_high": 1061040000,
    "day_low": 1039950000,
    "prev_price": 1034310000,
    "source": "tgju",
-   "updated_at": "2026-09-20T16:59:52.981Z",
+   "updated_at": "2026-09-20T17:17:25.750Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 10111084943,
+   "price": 10108235700,
    "change": 0,
    "change_percent": 0,
-   "day_high": 10111084943,
-   "day_low": 10096299316,
-   "prev_price": 10111084943,
+   "day_high": 10108235700,
+   "day_low": 10093454240,
+   "prev_price": 10108235700,
    "source": "tgju+toman",
-   "updated_at": "2026-09-20T16:59:52.981Z",
+   "updated_at": "2026-09-20T17:17:25.750Z",
    "is_stale": false
   }
  ]
