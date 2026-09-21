@@ -1,13 +1,13 @@
 {
  "status": "ok",
  "version": "1.0.0",
- "time": "2026-09-21T15:30:54.008Z",
+ "time": "2026-09-21T15:49:49.443Z",
  "is_stale": false,
  "cache": {
   "assets": 18,
   "fresh": 19,
   "stale": 0,
-  "last_success_at": "2026-09-21T15:30:54.008Z"
+  "last_success_at": "2026-09-21T15:49:49.443Z"
  },
  "sources": [
   {
@@ -15,7 +15,7 @@
    "status": "up",
    "host": "https://call5.tgju.org",
    "priority": 1,
-   "response_ms": 567,
+   "response_ms": 332,
    "error": null
   },
   {
