@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-22T21:21:10.777Z",
- "generated_at": "2026-09-22T21:21:10.777Z",
+ "updated_at": "2026-09-22T21:41:04.811Z",
+ "generated_at": "2026-09-22T21:41:04.811Z",
  "is_stale": false,
  "data": [
   {
@@ -10,13 +10,13 @@
    "currency": "TOMAN",
    "unit": "عدد",
    "price": 2374900000,
-   "change": 35100000,
-   "change_percent": 1.5,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 2380100000,
    "day_low": 2369800000,
-   "prev_price": 2339800000,
+   "prev_price": 2374900000,
    "source": "tgju",
-   "updated_at": "2026-09-22T21:21:10.777Z",
+   "updated_at": "2026-09-22T21:41:04.811Z",
    "is_stale": false
   },
   {
@@ -26,13 +26,13 @@
    "currency": "TOMAN",
    "unit": "عدد",
    "price": 2332900000,
-   "change": 31600000,
-   "change_percent": 1.37,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 2343900000,
    "day_low": 2329800000,
-   "prev_price": 2301300000,
+   "prev_price": 2332900000,
    "source": "tgju",
-   "updated_at": "2026-09-22T21:21:10.777Z",
+   "updated_at": "2026-09-22T21:41:04.811Z",
    "is_stale": false
   },
   {
@@ -42,13 +42,13 @@
    "currency": "TOMAN",
    "unit": "عدد",
    "price": 1210000000,
-   "change": 10000000,
-   "change_percent": 0.83,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 1210000000,
    "day_low": 1210000000,
-   "prev_price": 1200000000,
+   "prev_price": 1210000000,
    "source": "tgju",
-   "updated_at": "2026-09-22T21:21:10.777Z",
+   "updated_at": "2026-09-22T21:41:04.811Z",
    "is_stale": false
   },
   {
@@ -64,7 +64,7 @@
    "day_low": 630000000,
    "prev_price": 630000000,
    "source": "tgju",
-   "updated_at": "2026-09-22T21:21:10.777Z",
+   "updated_at": "2026-09-22T21:41:04.811Z",
    "is_stale": false
   },
   {
@@ -80,7 +80,7 @@
    "day_low": 330000000,
    "prev_price": 330000000,
    "source": "tgju",
-   "updated_at": "2026-09-22T21:21:10.777Z",
+   "updated_at": "2026-09-22T21:41:04.811Z",
    "is_stale": false
   }
  ]
