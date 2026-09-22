@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-22T11:32:58.349Z",
- "generated_at": "2026-09-22T11:32:58.349Z",
+ "updated_at": "2026-09-22T11:48:29.899Z",
+ "generated_at": "2026-09-22T11:48:29.899Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2374950000,
-   "change": 35150000,
-   "change_percent": 1.5,
+   "price": 2370100000,
+   "change": 30300000,
+   "change_percent": 1.29,
    "day_high": 2380100000,
    "day_low": 2369800000,
    "prev_price": 2339800000,
    "source": "tgju",
-   "updated_at": "2026-09-22T11:32:58.349Z",
+   "updated_at": "2026-09-22T11:48:29.899Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2340700000,
-   "change": 39400000,
-   "change_percent": 1.71,
+   "price": 2329950000,
+   "change": 28650000,
+   "change_percent": 1.24,
    "day_high": 2340900000,
-   "day_low": 2331700000,
+   "day_low": 2329800000,
    "prev_price": 2301300000,
    "source": "tgju",
-   "updated_at": "2026-09-22T11:32:58.349Z",
+   "updated_at": "2026-09-22T11:48:29.899Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,7 @@
    "day_low": 1210000000,
    "prev_price": 1200000000,
    "source": "tgju",
-   "updated_at": "2026-09-22T11:32:58.349Z",
+   "updated_at": "2026-09-22T11:48:29.899Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 635000000,
-   "change": 5000000,
-   "change_percent": 0.79,
+   "price": 630000000,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 635000000,
    "day_low": 630000000,
    "prev_price": 630000000,
    "source": "tgju",
-   "updated_at": "2026-09-22T11:32:58.349Z",
+   "updated_at": "2026-09-22T11:48:29.899Z",
    "is_stale": false
   },
   {
@@ -80,7 +80,7 @@
    "day_low": 330000000,
    "prev_price": 330000000,
    "source": "tgju",
-   "updated_at": "2026-09-22T11:32:58.349Z",
+   "updated_at": "2026-09-22T11:48:29.899Z",
    "is_stale": false
   }
  ]
