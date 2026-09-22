@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-22T17:16:06.288Z",
- "generated_at": "2026-09-22T17:16:06.288Z",
+ "updated_at": "2026-09-22T17:31:35.788Z",
+ "generated_at": "2026-09-22T17:31:35.788Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 239402000,
-   "change": 2330000,
+   "price": 239390000,
+   "change": 2318000,
    "change_percent": 0.98,
    "day_high": 242405000,
    "day_low": 237079000,
    "prev_price": 237072000,
    "source": "tgju",
-   "updated_at": "2026-09-22T17:16:06.288Z",
+   "updated_at": "2026-09-22T17:31:35.788Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 319199000,
-   "change": 3106000,
+   "price": 319183000,
+   "change": 3090000,
    "change_percent": 0.98,
    "day_high": 323203000,
    "day_low": 316102000,
    "prev_price": 316093000,
    "source": "tgju",
-   "updated_at": "2026-09-22T17:16:06.288Z",
+   "updated_at": "2026-09-22T17:31:35.788Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "مثقال",
-   "price": 1036950000,
-   "change": 9970000,
-   "change_percent": 0.97,
+   "price": 1037020000,
+   "change": 10040000,
+   "change_percent": 0.98,
    "day_high": 1050050000,
    "day_low": 1031950000,
    "prev_price": 1026980000,
    "source": "tgju",
-   "updated_at": "2026-09-22T17:16:06.288Z",
+   "updated_at": "2026-09-22T17:31:35.788Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 10087998800,
-   "change": -35726240,
-   "change_percent": -0.35,
+   "price": 10112624720,
+   "change": -11100320,
+   "change_percent": -0.11,
    "day_high": 10199818200,
    "day_low": 10009480360,
    "prev_price": 10123725040,
    "source": "tgju+toman",
-   "updated_at": "2026-09-22T17:16:06.288Z",
+   "updated_at": "2026-09-22T17:31:35.788Z",
    "is_stale": false
   }
  ]
