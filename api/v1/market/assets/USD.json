@@ -5,13 +5,13 @@
  "currency": "TOMAN",
  "unit": "دلار",
  "price": 2346150,
- "change": 29100,
- "change_percent": 1.26,
+ "change": 0,
+ "change_percent": 0,
  "day_high": 2363200,
  "day_low": 2340600,
- "prev_price": 2317050,
+ "prev_price": 2346150,
  "source": "tgju",
- "updated_at": "2026-09-24T21:17:53.184Z",
+ "updated_at": "2026-09-24T21:32:27.681Z",
  "is_stale": false,
- "generated_at": "2026-09-24T21:17:53.184Z"
+ "generated_at": "2026-09-24T21:32:27.681Z"
 }
