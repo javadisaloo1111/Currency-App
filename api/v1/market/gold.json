@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-09-29T14:19:47.344Z",
- "generated_at": "2026-09-29T14:19:47.344Z",
+ "updated_at": "2026-09-29T14:39:20.262Z",
+ "generated_at": "2026-09-29T14:39:20.262Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 251168000,
-   "change": 7156000,
-   "change_percent": 2.93,
+   "price": 250944000,
+   "change": 6932000,
+   "change_percent": 2.84,
    "day_high": 251754000,
    "day_low": 244014000,
    "prev_price": 244012000,
    "source": "tgju",
-   "updated_at": "2026-09-29T14:19:47.344Z",
+   "updated_at": "2026-09-29T14:39:20.262Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "گرم",
-   "price": 334887000,
-   "change": 9541000,
-   "change_percent": 2.93,
+   "price": 334589000,
+   "change": 9243000,
+   "change_percent": 2.84,
    "day_high": 335669000,
    "day_low": 325349000,
    "prev_price": 325346000,
    "source": "tgju",
-   "updated_at": "2026-09-29T14:19:47.344Z",
+   "updated_at": "2026-09-29T14:39:20.262Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "مثقال",
-   "price": 1087980000,
-   "change": 30960000,
-   "change_percent": 2.93,
+   "price": 1087050000,
+   "change": 30030000,
+   "change_percent": 2.84,
    "day_high": 1090550000,
    "day_low": 1072950000,
    "prev_price": 1057020000,
    "source": "tgju",
-   "updated_at": "2026-09-29T14:19:47.344Z",
+   "updated_at": "2026-09-29T14:39:20.262Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 10521675360,
-   "change": 93051000,
-   "change_percent": 0.89,
-   "day_high": 10536006480,
-   "day_low": 10410697800,
-   "prev_price": 10428624360,
+   "price": 10543714051,
+   "change": 139390198,
+   "change_percent": 1.34,
+   "day_high": 10543714051,
+   "day_low": 10386439065,
+   "prev_price": 10404323853,
    "source": "tgju+toman",
-   "updated_at": "2026-09-29T14:19:47.344Z",
+   "updated_at": "2026-09-29T14:39:20.262Z",
    "is_stale": false
   }
  ]
