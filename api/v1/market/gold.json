@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-01T20:20:21.536Z",
- "generated_at": "2026-10-01T20:20:21.536Z",
+ "updated_at": "2026-10-01T20:44:51.474Z",
+ "generated_at": "2026-10-01T20:44:51.474Z",
  "is_stale": false,
  "data": [
   {
@@ -10,13 +10,13 @@
    "currency": "TOMAN",
    "unit": "گرم",
    "price": 256944000,
-   "change": 3364000,
-   "change_percent": 1.33,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 257872000,
    "day_low": 253001000,
-   "prev_price": 253580000,
+   "prev_price": 256944000,
    "source": "tgju",
-   "updated_at": "2026-10-01T20:20:21.536Z",
+   "updated_at": "2026-10-01T20:44:51.474Z",
    "is_stale": false
   },
   {
@@ -26,13 +26,13 @@
    "currency": "TOMAN",
    "unit": "گرم",
    "price": 342588000,
-   "change": 4484000,
-   "change_percent": 1.33,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 343826000,
    "day_low": 337331000,
-   "prev_price": 338104000,
+   "prev_price": 342588000,
    "source": "tgju",
-   "updated_at": "2026-10-01T20:20:21.536Z",
+   "updated_at": "2026-10-01T20:44:51.474Z",
    "is_stale": false
   },
   {
@@ -42,13 +42,13 @@
    "currency": "TOMAN",
    "unit": "مثقال",
    "price": 1113040000,
-   "change": 14550000,
-   "change_percent": 1.32,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 1117050000,
    "day_low": 1095950000,
-   "prev_price": 1098490000,
+   "prev_price": 1113040000,
    "source": "tgju",
-   "updated_at": "2026-10-01T20:20:21.536Z",
+   "updated_at": "2026-10-01T20:44:51.474Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 10792981470,
-   "change": 49237583,
-   "change_percent": 0.46,
-   "day_high": 10834051558,
-   "day_low": 10700709465,
-   "prev_price": 10743743888,
+   "price": 10789931583,
+   "change": -2016027,
+   "change_percent": -0.02,
+   "day_high": 10789931583,
+   "day_low": 10787708784,
+   "prev_price": 10791947610,
    "source": "tgju+toman",
-   "updated_at": "2026-10-01T20:20:21.536Z",
+   "updated_at": "2026-10-01T20:44:51.474Z",
    "is_stale": false
   }
  ]
