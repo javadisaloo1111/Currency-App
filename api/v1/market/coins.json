@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-03T08:25:58.867Z",
- "generated_at": "2026-10-03T08:25:58.867Z",
+ "updated_at": "2026-10-03T08:48:57.680Z",
+ "generated_at": "2026-10-03T08:48:57.680Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2653500000,
-   "change": 49550000,
-   "change_percent": 1.9,
-   "day_high": 2655800000,
+   "price": 2660200000,
+   "change": 56250000,
+   "change_percent": 2.16,
+   "day_high": 2661400000,
    "day_low": 2652300000,
    "prev_price": 2603950000,
    "source": "tgju",
-   "updated_at": "2026-10-03T08:25:58.867Z",
+   "updated_at": "2026-10-03T08:48:57.680Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2565800000,
-   "change": 45150000,
-   "change_percent": 1.79,
-   "day_high": 2565800000,
+   "price": 2567550000,
+   "change": 46900000,
+   "change_percent": 1.86,
+   "day_high": 2568000000,
    "day_low": 2564600000,
    "prev_price": 2520650000,
    "source": "tgju",
-   "updated_at": "2026-10-03T08:25:58.867Z",
+   "updated_at": "2026-10-03T08:48:57.680Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,7 @@
    "day_low": 1375800000,
    "prev_price": 1357400000,
    "source": "tgju",
-   "updated_at": "2026-10-03T08:25:58.867Z",
+   "updated_at": "2026-10-03T08:48:57.680Z",
    "is_stale": false
   },
   {
@@ -64,7 +64,7 @@
    "day_low": 746700000,
    "prev_price": 731000000,
    "source": "tgju",
-   "updated_at": "2026-10-03T08:25:58.867Z",
+   "updated_at": "2026-10-03T08:48:57.680Z",
    "is_stale": false
   },
   {
@@ -73,14 +73,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 370000000,
-   "change": 0,
-   "change_percent": 0,
-   "day_high": 370000000,
-   "day_low": 370000000,
+   "price": 373500000,
+   "change": 3500000,
+   "change_percent": 0.95,
+   "day_high": 373500000,
+   "day_low": 373500000,
    "prev_price": 370000000,
    "source": "tgju",
-   "updated_at": "2026-10-03T08:25:58.867Z",
+   "updated_at": "2026-10-03T08:48:57.680Z",
    "is_stale": false
   }
  ]
