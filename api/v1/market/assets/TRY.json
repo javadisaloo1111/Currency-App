@@ -4,14 +4,14 @@
  "category": "currency",
  "currency": "TOMAN",
  "unit": "لیر",
- "price": 54800,
- "change": -500,
- "change_percent": -0.91,
+ "price": 54600,
+ "change": -700,
+ "change_percent": -1.28,
  "day_high": 55800,
  "day_low": 54600,
  "prev_price": 55300,
  "source": "tgju",
- "updated_at": "2026-10-05T14:56:19.885Z",
+ "updated_at": "2026-10-05T15:20:21.285Z",
  "is_stale": false,
- "generated_at": "2026-10-05T14:56:19.885Z"
+ "generated_at": "2026-10-05T15:20:21.285Z"
 }
