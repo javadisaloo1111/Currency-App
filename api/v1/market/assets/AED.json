@@ -4,14 +4,14 @@
  "category": "currency",
  "currency": "TOMAN",
  "unit": "درهم",
- "price": 733960,
- "change": -440,
- "change_percent": -0.06,
+ "price": 734260,
+ "change": -140,
+ "change_percent": -0.02,
  "day_high": 744300,
- "day_low": 733840,
+ "day_low": 733400,
  "prev_price": 734400,
  "source": "tgju",
- "updated_at": "2026-10-05T16:01:53.992Z",
+ "updated_at": "2026-10-05T16:28:16.316Z",
  "is_stale": false,
- "generated_at": "2026-10-05T16:01:53.992Z"
+ "generated_at": "2026-10-05T16:28:16.316Z"
 }
