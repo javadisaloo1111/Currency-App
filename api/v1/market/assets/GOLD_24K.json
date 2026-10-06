@@ -4,14 +4,14 @@
  "category": "gold",
  "currency": "TOMAN",
  "unit": "گرم",
- "price": 355368000,
- "change": 1410000,
- "change_percent": 0.4,
+ "price": 356270000,
+ "change": 2312000,
+ "change_percent": 0.65,
  "day_high": 357892000,
  "day_low": 353980000,
  "prev_price": 353958000,
  "source": "tgju",
- "updated_at": "2026-10-06T12:56:31.167Z",
+ "updated_at": "2026-10-06T13:19:54.805Z",
  "is_stale": false,
- "generated_at": "2026-10-06T12:56:31.167Z"
+ "generated_at": "2026-10-06T13:19:54.805Z"
 }
