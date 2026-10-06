@@ -1,13 +1,13 @@
 {
  "status": "ok",
  "version": "1.0.0",
- "time": "2026-10-06T11:46:16.765Z",
+ "time": "2026-10-06T12:01:14.726Z",
  "is_stale": false,
  "cache": {
   "assets": 18,
   "fresh": 19,
   "stale": 0,
-  "last_success_at": "2026-10-06T11:46:16.765Z"
+  "last_success_at": "2026-10-06T12:01:14.726Z"
  },
  "sources": [
   {
