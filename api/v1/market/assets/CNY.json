@@ -4,14 +4,14 @@
  "category": "currency",
  "currency": "TOMAN",
  "unit": "یوان",
- "price": 400100,
- "change": 5600,
- "change_percent": 1.42,
+ "price": 399700,
+ "change": 5200,
+ "change_percent": 1.32,
  "day_high": 401600,
  "day_low": 398100,
  "prev_price": 394500,
  "source": "tgju",
- "updated_at": "2026-10-08T13:19:27.035Z",
+ "updated_at": "2026-10-08T13:41:53.069Z",
  "is_stale": false,
- "generated_at": "2026-10-08T13:19:27.035Z"
+ "generated_at": "2026-10-08T13:41:53.069Z"
 }
