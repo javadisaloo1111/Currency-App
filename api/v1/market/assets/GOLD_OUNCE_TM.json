@@ -5,13 +5,13 @@
  "currency": "TOMAN",
  "unit": "انس",
  "price": 11117949370,
- "change": -5010390,
- "change_percent": -0.05,
+ "change": 0,
+ "change_percent": 0,
  "day_high": 11123463450,
  "day_low": 11115643000,
- "prev_price": 11122959760,
+ "prev_price": 11117949370,
  "source": "tgju+toman",
- "updated_at": "2026-10-10T17:59:33.192Z",
+ "updated_at": "2026-10-10T21:33:33.340Z",
  "is_stale": false,
- "generated_at": "2026-10-10T17:59:33.192Z"
+ "generated_at": "2026-10-10T21:33:33.340Z"
 }
