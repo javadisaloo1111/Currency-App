@@ -4,14 +4,14 @@
  "category": "currency",
  "currency": "TOMAN",
  "unit": "یورو",
- "price": 2988800,
- "change": -1300,
- "change_percent": -0.04,
+ "price": 2983100,
+ "change": -7000,
+ "change_percent": -0.23,
  "day_high": 3006000,
- "day_low": 2985400,
+ "day_low": 2983100,
  "prev_price": 2990100,
  "source": "tgju",
- "updated_at": "2026-10-10T13:31:26.273Z",
+ "updated_at": "2026-10-10T17:59:33.192Z",
  "is_stale": false,
- "generated_at": "2026-10-10T13:31:26.273Z"
+ "generated_at": "2026-10-10T17:59:33.192Z"
 }
