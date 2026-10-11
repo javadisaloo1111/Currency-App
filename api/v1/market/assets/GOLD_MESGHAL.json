@@ -5,13 +5,13 @@
  "currency": "TOMAN",
  "unit": "مثقال",
  "price": 1139230000,
- "change": -8520000,
- "change_percent": -0.75,
+ "change": 0,
+ "change_percent": 0,
  "day_high": 1144050000,
  "day_low": 1136950000,
- "prev_price": 1147750000,
+ "prev_price": 1139230000,
  "source": "tgju",
- "updated_at": "2026-10-11T18:05:04.009Z",
+ "updated_at": "2026-10-11T21:53:42.979Z",
  "is_stale": false,
- "generated_at": "2026-10-11T18:05:04.009Z"
+ "generated_at": "2026-10-11T21:53:42.979Z"
 }
