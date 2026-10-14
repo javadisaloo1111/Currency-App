@@ -4,14 +4,14 @@
  "category": "currency",
  "currency": "TOMAN",
  "unit": "پوند",
- "price": 3479200,
- "change": 72300,
- "change_percent": 2.12,
+ "price": 3475500,
+ "change": 68600,
+ "change_percent": 2.01,
  "day_high": 3492900,
  "day_low": 3440400,
  "prev_price": 3406900,
  "source": "tgju",
- "updated_at": "2026-10-14T12:56:32.749Z",
+ "updated_at": "2026-10-14T17:55:01.237Z",
  "is_stale": false,
- "generated_at": "2026-10-14T12:56:32.749Z"
+ "generated_at": "2026-10-14T17:55:01.237Z"
 }
