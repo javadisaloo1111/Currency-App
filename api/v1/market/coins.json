@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-17T16:30:16.593Z",
- "generated_at": "2026-10-17T16:30:16.593Z",
+ "updated_at": "2026-10-17T18:48:35.733Z",
+ "generated_at": "2026-10-17T18:48:35.733Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2661950000,
-   "change": -37250000,
-   "change_percent": -1.4,
+   "price": 2659750000,
+   "change": -39450000,
+   "change_percent": -1.48,
    "day_high": 2688700000,
-   "day_low": 2661600000,
+   "day_low": 2659400000,
    "prev_price": 2699200000,
    "source": "tgju",
-   "updated_at": "2026-10-17T16:30:16.593Z",
+   "updated_at": "2026-10-17T18:48:35.733Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2575850000,
-   "change": -19250000,
-   "change_percent": -0.75,
+   "price": 2575600000,
+   "change": -19500000,
+   "change_percent": -0.76,
    "day_high": 2589900000,
    "day_low": 2572000000,
    "prev_price": 2595100000,
    "source": "tgju",
-   "updated_at": "2026-10-17T16:30:16.593Z",
+   "updated_at": "2026-10-17T18:48:35.733Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 1400700000,
-   "change": -19800000,
-   "change_percent": -1.41,
+   "price": 1399800000,
+   "change": -20700000,
+   "change_percent": -1.48,
    "day_high": 1422700000,
-   "day_low": 1400700000,
+   "day_low": 1399800000,
    "prev_price": 1420500000,
    "source": "tgju",
-   "updated_at": "2026-10-17T16:30:16.593Z",
+   "updated_at": "2026-10-17T18:48:35.733Z",
    "is_stale": false
   },
   {
@@ -64,7 +64,7 @@
    "day_low": 720900000,
    "prev_price": 766700000,
    "source": "tgju",
-   "updated_at": "2026-10-17T16:30:16.593Z",
+   "updated_at": "2026-10-17T18:48:35.733Z",
    "is_stale": false
   },
   {
@@ -80,7 +80,7 @@
    "day_low": 380000000,
    "prev_price": 380000000,
    "source": "tgju",
-   "updated_at": "2026-10-17T16:30:16.593Z",
+   "updated_at": "2026-10-17T18:48:35.733Z",
    "is_stale": false
   }
  ]
