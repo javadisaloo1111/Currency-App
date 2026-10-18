@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-18T19:25:37.070Z",
- "generated_at": "2026-10-18T19:25:37.070Z",
+ "updated_at": "2026-10-18T21:43:33.130Z",
+ "generated_at": "2026-10-18T21:43:33.130Z",
  "is_stale": false,
  "data": [
   {
@@ -10,13 +10,13 @@
    "currency": "TOMAN",
    "unit": "گرم",
    "price": 259372000,
-   "change": -2450000,
-   "change_percent": -0.94,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 261819000,
    "day_low": 257664000,
-   "prev_price": 261822000,
+   "prev_price": 259372000,
    "source": "tgju",
-   "updated_at": "2026-10-18T19:25:37.070Z",
+   "updated_at": "2026-10-18T21:43:33.130Z",
    "is_stale": false
   },
   {
@@ -26,13 +26,13 @@
    "currency": "TOMAN",
    "unit": "گرم",
    "price": 345826000,
-   "change": -3266000,
-   "change_percent": -0.94,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 349089000,
    "day_low": 343549000,
-   "prev_price": 349092000,
+   "prev_price": 345826000,
    "source": "tgju",
-   "updated_at": "2026-10-18T19:25:37.070Z",
+   "updated_at": "2026-10-18T21:43:33.130Z",
    "is_stale": false
   },
   {
@@ -42,13 +42,13 @@
    "currency": "TOMAN",
    "unit": "مثقال",
    "price": 1123470000,
-   "change": -10680000,
-   "change_percent": -0.95,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 1127050000,
    "day_low": 1116150000,
-   "prev_price": 1134150000,
+   "prev_price": 1123470000,
    "source": "tgju",
-   "updated_at": "2026-10-18T19:25:37.070Z",
+   "updated_at": "2026-10-18T21:43:33.130Z",
    "is_stale": false
   },
   {
@@ -64,7 +64,7 @@
    "day_low": 10941651720,
    "prev_price": 10949272920,
    "source": "tgju+toman",
-   "updated_at": "2026-10-18T19:25:37.070Z",
+   "updated_at": "2026-10-18T21:43:33.130Z",
    "is_stale": false
   }
  ]
