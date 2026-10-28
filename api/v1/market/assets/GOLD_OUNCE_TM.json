@@ -4,14 +4,14 @@
  "category": "gold",
  "currency": "TOMAN",
  "unit": "انس",
- "price": 10933710048,
- "change": -6090813,
- "change_percent": -0.06,
- "day_high": 10966131500,
- "day_low": 10856631618,
- "prev_price": 10939800861,
+ "price": 10879635288,
+ "change": -38651707,
+ "change_percent": -0.36,
+ "day_high": 10944565853,
+ "day_low": 10835281310,
+ "prev_price": 10918286995,
  "source": "tgju+toman",
- "updated_at": "2026-10-28T08:52:48.953Z",
+ "updated_at": "2026-10-28T15:48:18.345Z",
  "is_stale": false,
- "generated_at": "2026-10-28T08:52:48.953Z"
+ "generated_at": "2026-10-28T15:48:18.345Z"
 }
