@@ -5,13 +5,13 @@
  "currency": "TOMAN",
  "unit": "گرم",
  "price": 252331000,
- "change": -9904000,
- "change_percent": -3.93,
+ "change": 0,
+ "change_percent": 0,
  "day_high": 262256000,
  "day_low": 251616000,
- "prev_price": 262235000,
+ "prev_price": 252331000,
  "source": "tgju",
- "updated_at": "2026-10-31T20:05:14.629Z",
+ "updated_at": "2026-10-31T23:20:23.086Z",
  "is_stale": false,
- "generated_at": "2026-10-31T20:05:14.629Z"
+ "generated_at": "2026-10-31T23:20:23.086Z"
 }
