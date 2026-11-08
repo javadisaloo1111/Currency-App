@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-11-08T15:08:17.840Z",
- "generated_at": "2026-11-08T15:08:17.840Z",
+ "updated_at": "2026-11-08T19:40:46.777Z",
+ "generated_at": "2026-11-08T19:40:46.777Z",
  "is_stale": false,
  "data": [
   {
@@ -16,7 +16,7 @@
    "day_low": 252539000,
    "prev_price": 255940000,
    "source": "tgju",
-   "updated_at": "2026-11-08T15:08:17.840Z",
+   "updated_at": "2026-11-08T19:40:46.777Z",
    "is_stale": false
   },
   {
@@ -32,7 +32,7 @@
    "day_low": 336716000,
    "prev_price": 341249000,
    "source": "tgju",
-   "updated_at": "2026-11-08T15:08:17.840Z",
+   "updated_at": "2026-11-08T19:40:46.777Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,7 @@
    "day_low": 1093950000,
    "prev_price": 1108680000,
    "source": "tgju",
-   "updated_at": "2026-11-08T15:08:17.840Z",
+   "updated_at": "2026-11-08T19:40:46.777Z",
    "is_stale": false
   },
   {
@@ -64,7 +64,7 @@
    "day_low": 10762198260,
    "prev_price": 10782516090,
    "source": "tgju+toman",
-   "updated_at": "2026-11-08T15:08:17.840Z",
+   "updated_at": "2026-11-08T19:40:46.777Z",
    "is_stale": false
   }
  ]
