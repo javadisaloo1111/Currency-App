@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-11-13T02:55:10.895Z",
- "generated_at": "2026-11-13T02:55:10.895Z",
+ "updated_at": "2026-11-13T10:42:35.489Z",
+ "generated_at": "2026-11-13T10:42:35.489Z",
  "is_stale": false,
  "data": [
   {
@@ -16,7 +16,7 @@
    "day_low": 249954000,
    "prev_price": 250388000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -32,7 +32,7 @@
    "day_low": 333268000,
    "prev_price": 333847000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -48,7 +48,7 @@
    "day_low": 1082460000,
    "prev_price": 1084550000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "gold",
    "currency": "TOMAN",
    "unit": "انس",
-   "price": 10432667270,
-   "change": 63388750,
-   "change_percent": 0.61,
-   "day_high": 10447773810,
+   "price": 10392311990,
+   "change": 23033470,
+   "change_percent": 0.22,
+   "day_high": 10469152500,
    "day_low": 10290543020,
    "prev_price": 10369278520,
    "source": "tgju+toman",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -80,7 +80,7 @@
    "day_low": 2538800000,
    "prev_price": 2539650000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -96,7 +96,7 @@
    "day_low": 2469500000,
    "prev_price": 2470450000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -112,7 +112,7 @@
    "day_low": 1331900000,
    "prev_price": 1331900000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -128,7 +128,7 @@
    "day_low": 721200000,
    "prev_price": 724900000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -144,7 +144,7 @@
    "day_low": 370000000,
    "prev_price": 370000000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -160,7 +160,7 @@
    "day_low": 2639000,
    "prev_price": 2669000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -176,7 +176,7 @@
    "day_low": 2931400,
    "prev_price": 2969300,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -192,7 +192,7 @@
    "day_low": 3503300,
    "prev_price": 3544900,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -208,7 +208,7 @@
    "day_low": 722630,
    "prev_price": 731380,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -224,7 +224,7 @@
    "day_low": 52800,
    "prev_price": 53200,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -240,7 +240,7 @@
    "day_low": 396100,
    "prev_price": 401100,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -256,7 +256,7 @@
    "day_low": 3171500,
    "prev_price": 3211700,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -265,14 +265,14 @@
    "category": "crypto",
    "currency": "TOMAN",
    "unit": "تتر",
-   "price": 2712750,
-   "change": 0,
-   "change_percent": 0,
-   "day_high": 2714590,
-   "day_low": 2642400,
+   "price": 2705140,
+   "change": -7610,
+   "change_percent": -0.28,
+   "day_high": 2713000,
+   "day_low": 2697600,
    "prev_price": 2712750,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   },
   {
@@ -281,14 +281,14 @@
    "category": "crypto",
    "currency": "TOMAN",
    "unit": "بیت‌کوین",
-   "price": 190349996000,
-   "change": -3692229000,
-   "change_percent": -1.94,
+   "price": 187484346000,
+   "change": -6557879000,
+   "change_percent": -3.5,
    "day_high": 194326950000,
-   "day_low": 190349996000,
+   "day_low": 184314456000,
    "prev_price": 194042225000,
    "source": "tgju",
-   "updated_at": "2026-11-13T02:55:10.895Z",
+   "updated_at": "2026-11-13T10:42:35.489Z",
    "is_stale": false
   }
  ]
