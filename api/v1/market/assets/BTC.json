@@ -4,14 +4,14 @@
  "category": "crypto",
  "currency": "TOMAN",
  "unit": "بیت‌کوین",
- "price": 170653529000,
- "change": -6909029000,
- "change_percent": -4.05,
+ "price": 173050028000,
+ "change": -4512530000,
+ "change_percent": -2.61,
  "day_high": 177546933000,
- "day_low": 170653529000,
+ "day_low": 168338162000,
  "prev_price": 177562558000,
  "source": "tgju",
- "updated_at": "2026-11-15T01:06:47.852Z",
+ "updated_at": "2026-11-15T07:49:22.180Z",
  "is_stale": false,
- "generated_at": "2026-11-15T01:06:47.852Z"
+ "generated_at": "2026-11-15T07:49:22.180Z"
 }
