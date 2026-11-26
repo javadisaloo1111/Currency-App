@@ -7,11 +7,11 @@
  "price": 57800,
  "change": 0,
  "change_percent": 0,
- "day_high": 57900,
- "day_low": 56000,
+ "day_high": 58400,
+ "day_low": 57700,
  "prev_price": 57800,
  "source": "tgju",
- "updated_at": "2026-11-26T03:09:40.758Z",
+ "updated_at": "2026-11-26T12:36:43.611Z",
  "is_stale": false,
- "generated_at": "2026-11-26T03:09:40.758Z"
+ "generated_at": "2026-11-26T12:36:43.611Z"
 }
