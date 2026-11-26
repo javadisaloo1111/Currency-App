@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-11-26T12:36:43.611Z",
- "generated_at": "2026-11-26T12:36:43.611Z",
+ "updated_at": "2026-11-26T21:55:19.090Z",
+ "generated_at": "2026-11-26T21:55:19.090Z",
  "is_stale": false,
  "data": [
   {
@@ -9,14 +9,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2648400000,
-   "change": 35650000,
-   "change_percent": 1.36,
+   "price": 2647350000,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 2674000000,
-   "day_low": 2646300000,
-   "prev_price": 2612750000,
+   "day_low": 2642800000,
+   "prev_price": 2647350000,
    "source": "tgju",
-   "updated_at": "2026-11-26T12:36:43.611Z",
+   "updated_at": "2026-11-26T21:55:19.090Z",
    "is_stale": false
   },
   {
@@ -25,14 +25,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 2555550000,
-   "change": 53350000,
-   "change_percent": 2.13,
+   "price": 2555600000,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 2560500000,
    "day_low": 2550900000,
-   "prev_price": 2502200000,
+   "prev_price": 2555600000,
    "source": "tgju",
-   "updated_at": "2026-11-26T12:36:43.611Z",
+   "updated_at": "2026-11-26T21:55:19.090Z",
    "is_stale": false
   },
   {
@@ -41,14 +41,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 1418500000,
-   "change": 19100000,
-   "change_percent": 1.36,
+   "price": 1416600000,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 1429700000,
-   "day_low": 1417700000,
-   "prev_price": 1399400000,
+   "day_low": 1416600000,
+   "prev_price": 1416600000,
    "source": "tgju",
-   "updated_at": "2026-11-26T12:36:43.611Z",
+   "updated_at": "2026-11-26T21:55:19.090Z",
    "is_stale": false
   },
   {
@@ -57,14 +57,14 @@
    "category": "coin",
    "currency": "TOMAN",
    "unit": "عدد",
-   "price": 777600000,
-   "change": 14900000,
-   "change_percent": 1.95,
+   "price": 776700000,
+   "change": 0,
+   "change_percent": 0,
    "day_high": 790000000,
-   "day_low": 776800000,
-   "prev_price": 762700000,
+   "day_low": 776700000,
+   "prev_price": 776700000,
    "source": "tgju",
-   "updated_at": "2026-11-26T12:36:43.611Z",
+   "updated_at": "2026-11-26T21:55:19.090Z",
    "is_stale": false
   },
   {
@@ -80,7 +80,7 @@
    "day_low": 380000000,
    "prev_price": 380000000,
    "source": "tgju",
-   "updated_at": "2026-11-26T12:36:43.611Z",
+   "updated_at": "2026-11-26T21:55:19.090Z",
    "is_stale": false
   }
  ]
